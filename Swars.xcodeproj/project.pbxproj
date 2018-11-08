@@ -8,12 +8,13 @@
 
 /* Begin PBXBuildFile section */
 		EE47BD1E21947E19007A61D7 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE47BD1D21947E19007A61D7 /* AppDelegate.swift */; };
-		EE47BD2021947E19007A61D7 /* FirstViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE47BD1F21947E19007A61D7 /* FirstViewController.swift */; };
-		EE47BD2221947E19007A61D7 /* SecondViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE47BD2121947E19007A61D7 /* SecondViewController.swift */; };
 		EE47BD2521947E19007A61D7 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EE47BD2321947E19007A61D7 /* Main.storyboard */; };
 		EE47BD2721947E1B007A61D7 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EE47BD2621947E1B007A61D7 /* Assets.xcassets */; };
 		EE47BD2A21947E1B007A61D7 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EE47BD2821947E1B007A61D7 /* LaunchScreen.storyboard */; };
 		EE47BD3521947E1B007A61D7 /* SwarsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE47BD3421947E1B007A61D7 /* SwarsTests.swift */; };
+		EE47BD4021948D53007A61D7 /* MoviesTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE47BD3F21948D53007A61D7 /* MoviesTableViewController.swift */; };
+		EE47BD4421948F4A007A61D7 /* FavoritesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE47BD4321948F4A007A61D7 /* FavoritesViewController.swift */; };
+		EE47BD46219493A1007A61D7 /* CharactersViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE47BD45219493A1007A61D7 /* CharactersViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -29,8 +30,6 @@
 /* Begin PBXFileReference section */
 		EE47BD1A21947E19007A61D7 /* Swars.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Swars.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		EE47BD1D21947E19007A61D7 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		EE47BD1F21947E19007A61D7 /* FirstViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirstViewController.swift; sourceTree = "<group>"; };
-		EE47BD2121947E19007A61D7 /* SecondViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecondViewController.swift; sourceTree = "<group>"; };
 		EE47BD2421947E19007A61D7 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		EE47BD2621947E1B007A61D7 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		EE47BD2921947E1B007A61D7 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -38,6 +37,9 @@
 		EE47BD3021947E1B007A61D7 /* SwarsTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SwarsTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		EE47BD3421947E1B007A61D7 /* SwarsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwarsTests.swift; sourceTree = "<group>"; };
 		EE47BD3621947E1B007A61D7 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		EE47BD3F21948D53007A61D7 /* MoviesTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoviesTableViewController.swift; sourceTree = "<group>"; };
+		EE47BD4321948F4A007A61D7 /* FavoritesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoritesViewController.swift; sourceTree = "<group>"; };
+		EE47BD45219493A1007A61D7 /* CharactersViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharactersViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -79,10 +81,11 @@
 		EE47BD1C21947E19007A61D7 /* Swars */ = {
 			isa = PBXGroup;
 			children = (
+				EE47BD3F21948D53007A61D7 /* MoviesTableViewController.swift */,
 				EE47BD1D21947E19007A61D7 /* AppDelegate.swift */,
-				EE47BD1F21947E19007A61D7 /* FirstViewController.swift */,
-				EE47BD2121947E19007A61D7 /* SecondViewController.swift */,
 				EE47BD2321947E19007A61D7 /* Main.storyboard */,
+				EE47BD45219493A1007A61D7 /* CharactersViewController.swift */,
+				EE47BD4321948F4A007A61D7 /* FavoritesViewController.swift */,
 				EE47BD2621947E1B007A61D7 /* Assets.xcassets */,
 				EE47BD2821947E1B007A61D7 /* LaunchScreen.storyboard */,
 				EE47BD2B21947E1B007A61D7 /* Info.plist */,
@@ -200,9 +203,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				EE47BD2221947E19007A61D7 /* SecondViewController.swift in Sources */,
+				EE47BD46219493A1007A61D7 /* CharactersViewController.swift in Sources */,
+				EE47BD4021948D53007A61D7 /* MoviesTableViewController.swift in Sources */,
+				EE47BD4421948F4A007A61D7 /* FavoritesViewController.swift in Sources */,
 				EE47BD1E21947E19007A61D7 /* AppDelegate.swift in Sources */,
-				EE47BD2021947E19007A61D7 /* FirstViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
