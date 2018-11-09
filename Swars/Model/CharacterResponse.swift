@@ -8,6 +8,11 @@
 
 import Foundation
 
+class CharacterResponse : Decodable {
+    let count: Int
+    let results: Array<Character>
+}
+
 class Character : Decodable{
     
     let name: String

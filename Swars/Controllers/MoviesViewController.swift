@@ -32,7 +32,6 @@ class MoviesViewController: UIViewController, UITableViewDataSource, UITableView
             }))
             alert.addAction(UIAlertAction(title: "Dismiss", style: .cancel, handler: nil))
             self.present(alert, animated: true)
-
         }
 
         // Do any additional setup after loading the view.

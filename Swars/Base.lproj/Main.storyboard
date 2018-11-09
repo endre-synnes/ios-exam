@@ -152,19 +152,54 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="css-L0-IJV">
-                                    <size key="itemSize" width="50" height="50"/>
+                                    <size key="itemSize" width="150" height="150"/>
                                     <size key="headerReferenceSize" width="0.0" height="0.0"/>
                                     <size key="footerReferenceSize" width="0.0" height="0.0"/>
                                     <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 </collectionViewFlowLayout>
                                 <cells>
-                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="characterCell" id="NRc-Rf-SQ1">
-                                        <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="characterCell" id="NRc-Rf-SQ1" customClass="CharacterCollectionViewCell" customModule="Swars" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="0.0" width="150" height="150"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO">
-                                            <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="150" height="150"/>
                                             <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Kph-Pp-tiN">
+                                                    <rect key="frame" x="0.0" y="0.0" width="150" height="150"/>
+                                                    <subviews>
+                                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="ozV-VP-sZR">
+                                                            <rect key="frame" x="8" y="-2" width="134" height="122"/>
+                                                        </imageView>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WEB-u5-kdJ">
+                                                            <rect key="frame" x="8" y="127.5" width="134" height="14.5"/>
+                                                            <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                                            <nil key="textColor"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                    </subviews>
+                                                    <constraints>
+                                                        <constraint firstAttribute="trailing" secondItem="WEB-u5-kdJ" secondAttribute="trailing" constant="8" id="3L2-Wf-TiQ"/>
+                                                        <constraint firstItem="WEB-u5-kdJ" firstAttribute="top" secondItem="ozV-VP-sZR" secondAttribute="bottom" constant="7.5" id="aOg-zg-9SK"/>
+                                                        <constraint firstItem="ozV-VP-sZR" firstAttribute="top" secondItem="Kph-Pp-tiN" secondAttribute="top" constant="-2" id="arO-Kt-AV7"/>
+                                                        <constraint firstAttribute="bottom" secondItem="WEB-u5-kdJ" secondAttribute="bottom" constant="8" id="cvf-ey-P0D"/>
+                                                        <constraint firstItem="WEB-u5-kdJ" firstAttribute="leading" secondItem="Kph-Pp-tiN" secondAttribute="leading" constant="8" id="gLu-ue-WB9"/>
+                                                        <constraint firstItem="ozV-VP-sZR" firstAttribute="leading" secondItem="Kph-Pp-tiN" secondAttribute="leading" constant="8" id="ngi-Sj-RS2"/>
+                                                        <constraint firstAttribute="trailing" secondItem="ozV-VP-sZR" secondAttribute="trailing" constant="8" id="tg4-do-Agf"/>
+                                                    </constraints>
+                                                </view>
+                                            </subviews>
                                         </view>
+                                        <constraints>
+                                            <constraint firstAttribute="trailing" secondItem="Kph-Pp-tiN" secondAttribute="trailing" id="Crd-Ep-QRs"/>
+                                            <constraint firstItem="Kph-Pp-tiN" firstAttribute="top" secondItem="NRc-Rf-SQ1" secondAttribute="top" id="SgT-na-2Fg"/>
+                                            <constraint firstAttribute="bottom" secondItem="Kph-Pp-tiN" secondAttribute="bottom" id="XEK-LY-lT1"/>
+                                            <constraint firstItem="Kph-Pp-tiN" firstAttribute="leading" secondItem="NRc-Rf-SQ1" secondAttribute="leading" id="rSs-H4-Zt3"/>
+                                        </constraints>
+                                        <connections>
+                                            <outlet property="characterImageView" destination="ozV-VP-sZR" id="cUX-Wm-iYZ"/>
+                                            <outlet property="characterNameLabel" destination="WEB-u5-kdJ" id="9Dm-ke-uDl"/>
+                                        </connections>
                                     </collectionViewCell>
                                 </cells>
                             </collectionView>
