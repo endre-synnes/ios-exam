@@ -7,10 +7,12 @@
 //
 
 import UIKit
+import CoreData
 
 class CharactersViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate {
     
     var characters = [Character]()
+    var myFavorites = [CharacterEntity]()
     let apiUrl = "https://swapi.co/api/people/?page="
     @IBOutlet weak var collectionView: UICollectionView!
 
@@ -18,6 +20,12 @@ class CharactersViewController: UIViewController, UICollectionViewDataSource, UI
     override func viewDidLoad() {
         super.viewDidLoad()
         collectionView.dataSource = self
+        
+        let delegate =  (UIApplication.shared.delegate as! AppDelegate)
+        let context = delegate.persistentContainer.viewContext
+        
+        let fetchRequest = NSFetchRequest<CharacterEntity>(entityName: "CharacterEntity")
+        myFavorites = try! context.fetch(fetchRequest)
         
         if(Helper.app.isInternetAvailable()){
             for index in 1...3 {
@@ -43,9 +51,26 @@ class CharactersViewController: UIViewController, UICollectionViewDataSource, UI
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "characterCell", for: indexPath) as! CharacterCollectionViewCell
+        let name = characters[indexPath.item].name
         
-        cell.characterNameLabel.text = characters[indexPath.item].name
-        cell.characterImageView.backgroundColor = UIColor.black
+        cell.characterNameLabel.text = name
+        
+        if myFavorites.count > 0 {
+            for favorite in myFavorites {
+                if(favorite.name?.elementsEqual(name))!{
+                    print("in if")
+                    cell.characterImageView.backgroundColor = UIColor.orange
+                } else {
+                    print("in else")
+                    cell.characterImageView.backgroundColor = UIColor.black
+                }
+            }
+        } else {
+            cell.characterImageView.backgroundColor = UIColor.black
+        }
+        
+        
+        
         
         //TODO implement check for database
         
