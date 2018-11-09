@@ -20,7 +20,20 @@ class MoviesViewController: UIViewController, UITableViewDataSource, UITableView
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.dataSource = self
-        loadDataFromServer()
+        
+        // Using helper method to check for internet connection
+        if(Helper.app.isInternetAvailable()){
+            loadDataFromServer()
+        } else {
+            let alert = UIAlertController(title: "No internet connection!", message: "Ensure that WiFi or cellular is enabled.", preferredStyle: .alert)
+            
+            alert.addAction(UIAlertAction(title: "Retry", style: .default, handler: {action in
+                self.viewDidLoad()
+            }))
+            alert.addAction(UIAlertAction(title: "Dismiss", style: .cancel, handler: nil))
+            self.present(alert, animated: true)
+
+        }
 
         // Do any additional setup after loading the view.
     }
