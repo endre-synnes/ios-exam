@@ -51,7 +51,7 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="Q5D-WE-ZtC" firstAttribute="leading" secondItem="3lp-Aj-HFv" secondAttribute="leading" id="PuT-pS-SIO"/>
-                            <constraint firstItem="3lp-Aj-HFv" firstAttribute="bottom" secondItem="Q5D-WE-ZtC" secondAttribute="bottom" constant="381" id="Zl9-9D-YYN"/>
+                            <constraint firstItem="3lp-Aj-HFv" firstAttribute="bottom" secondItem="Q5D-WE-ZtC" secondAttribute="bottom" priority="250" constant="381" id="Zl9-9D-YYN"/>
                             <constraint firstItem="3lp-Aj-HFv" firstAttribute="trailing" secondItem="Q5D-WE-ZtC" secondAttribute="trailing" id="gbn-NA-8HD"/>
                             <constraint firstItem="Q5D-WE-ZtC" firstAttribute="top" secondItem="3lp-Aj-HFv" secondAttribute="top" constant="31" id="wns-qu-E95"/>
                         </constraints>
