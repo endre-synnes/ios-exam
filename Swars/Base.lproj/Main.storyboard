@@ -7,23 +7,62 @@
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="Stack View standard spacing" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
         <!--MovieDetails-->
         <scene sceneID="hKL-vT-WIi">
             <objects>
-                <viewController title="MovieDetails" id="dVG-PN-xVu" sceneMemberID="viewController">
+                <viewController title="MovieDetails" id="dVG-PN-xVu" customClass="MovieDetailsViewController" customModule="Swars" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="du8-vw-cRu">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <stackView opaque="NO" contentMode="scaleToFill" fixedFrame="YES" restorationIdentifier="detailsStack" axis="vertical" spacingType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="Q5D-WE-ZtC">
+                                <rect key="frame" x="16" y="193" width="42" height="106"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Yj6-9B-gqq">
+                                        <rect key="frame" x="0.0" y="0.0" width="42" height="20.5"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RGd-iW-tmI">
+                                        <rect key="frame" x="0.0" y="28.5" width="42" height="20.5"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5jv-U2-flF">
+                                        <rect key="frame" x="0.0" y="57" width="42" height="20.5"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="enJ-Ux-Y76">
+                                        <rect key="frame" x="0.0" y="85.5" width="42" height="20.5"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                            </stackView>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <viewLayoutGuide key="safeArea" id="3lp-Aj-HFv"/>
                     </view>
+                    <connections>
+                        <outlet property="directorLabel" destination="RGd-iW-tmI" id="GQc-9k-GMn"/>
+                        <outlet property="movieTitleLabel" destination="Yj6-9B-gqq" id="Ljl-ou-YlG"/>
+                        <outlet property="producerLabel" destination="5jv-U2-flF" id="cUU-kK-DOZ"/>
+                        <outlet property="releaseDateLabel" destination="enJ-Ux-Y76" id="xDx-VA-VhW"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="nDG-hc-kjy" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3524" y="-303"/>
+            <point key="canvasLocation" x="3524" y="-303.59820089955025"/>
         </scene>
         <!--MovieController-->
         <scene sceneID="Xdm-mH-bTy">
@@ -72,6 +111,7 @@
                                         </tableViewCellContentView>
                                         <connections>
                                             <outlet property="movieNameLabel" destination="Vz6-yW-TLa" id="SeX-uF-2di"/>
+                                            <segue destination="dVG-PN-xVu" kind="show" identifier="segueToMovieDetails" id="1Ob-tE-L9L"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>

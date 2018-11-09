@@ -23,6 +23,7 @@
 		EE8BE41D2194E607005B8EC2 /* CharacterEntity+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE8BE4192194E607005B8EC2 /* CharacterEntity+CoreDataProperties.swift */; };
 		EE8BE41E2194E607005B8EC2 /* MovieEntity+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE8BE41A2194E607005B8EC2 /* MovieEntity+CoreDataClass.swift */; };
 		EE8BE41F2194E607005B8EC2 /* MovieEntity+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE8BE41B2194E607005B8EC2 /* MovieEntity+CoreDataProperties.swift */; };
+		EEE18157219594B80002FD74 /* MovieDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEE18156219594B80002FD74 /* MovieDetailsViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -56,6 +57,7 @@
 		EE8BE4192194E607005B8EC2 /* CharacterEntity+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CharacterEntity+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		EE8BE41A2194E607005B8EC2 /* MovieEntity+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MovieEntity+CoreDataClass.swift"; sourceTree = "<group>"; };
 		EE8BE41B2194E607005B8EC2 /* MovieEntity+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MovieEntity+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		EEE18156219594B80002FD74 /* MovieDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieDetailsViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -126,6 +128,7 @@
 				EE47BD45219493A1007A61D7 /* CharactersViewController.swift */,
 				EE47BD4321948F4A007A61D7 /* FavoritesViewController.swift */,
 				EE8BE3EE2194DA3E005B8EC2 /* MoviesTableViewCell.swift */,
+				EEE18156219594B80002FD74 /* MovieDetailsViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -261,6 +264,7 @@
 			files = (
 				EE47BD46219493A1007A61D7 /* CharactersViewController.swift in Sources */,
 				EE47BD4421948F4A007A61D7 /* FavoritesViewController.swift in Sources */,
+				EEE18157219594B80002FD74 /* MovieDetailsViewController.swift in Sources */,
 				EE8BE41E2194E607005B8EC2 /* MovieEntity+CoreDataClass.swift in Sources */,
 				EE8BE41D2194E607005B8EC2 /* CharacterEntity+CoreDataProperties.swift in Sources */,
 				EE8BE3F32194DCDC005B8EC2 /* Character.swift in Sources */,
