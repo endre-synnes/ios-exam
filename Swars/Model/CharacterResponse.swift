@@ -21,4 +21,5 @@ class Character : Decodable{
     let birth_year: String
     let gender: String
     let films: Array<String>
+    let url: String
 }

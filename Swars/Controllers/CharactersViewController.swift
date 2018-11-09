@@ -20,7 +20,9 @@ class CharactersViewController: UIViewController, UICollectionViewDataSource, UI
     override func viewDidLoad() {
         super.viewDidLoad()
         collectionView.dataSource = self
-        
+        collectionView.delegate = self
+    
+        //self.reloadCollectionView()
         let delegate =  (UIApplication.shared.delegate as! AppDelegate)
         let context = delegate.persistentContainer.viewContext
         
@@ -28,9 +30,7 @@ class CharactersViewController: UIViewController, UICollectionViewDataSource, UI
         myFavorites = try! context.fetch(fetchRequest)
         
         if(Helper.app.isInternetAvailable()){
-            for index in 1...3 {
-                loadDataFromServer(index: index)
-            }
+            loadDataFromServer()
         } else {
             let alert = UIAlertController(title: "No internet connection!", message: "Ensure that WiFi or cellular is enabled.", preferredStyle: .alert)
             
@@ -54,62 +54,93 @@ class CharactersViewController: UIViewController, UICollectionViewDataSource, UI
         let name = characters[indexPath.item].name
         
         cell.characterNameLabel.text = name
-        
-        if myFavorites.count > 0 {
-            for favorite in myFavorites {
-                if(favorite.name?.elementsEqual(name))!{
-                    print("in if")
-                    cell.characterImageView.backgroundColor = UIColor.orange
-                } else {
-                    print("in else")
-                    cell.characterImageView.backgroundColor = UIColor.black
-                }
-            }
+
+        if myFavorites.contains(where: {$0.name == name}) {
+            cell.characterImageView.backgroundColor = UIColor.orange
         } else {
             cell.characterImageView.backgroundColor = UIColor.black
         }
         
-        
-        
-        
-        //TODO implement check for database
-        
         return cell
-        
     }
     
-
-    
-    func loadDataFromServer(index: Int) {
-        let task = URLSession.shared.dataTask(with: URL.init(string: "https://swapi.co/api/people/?page=\(index)&format=json")!) { (data, response, error) in
-            
-            if let actualData = data {
-                                
-                let decoder = JSONDecoder()
-                
-                do {
-                    let characterResponse = try decoder.decode(CharacterResponse.self, from: actualData)
-                    
-                    self.characters.append(contentsOf: characterResponse.results)
-                    
-                    //self.characters = characterResponse.results
-                    
-                    //Siden kun main thread har lov til å gjøre UI opdpateringer så må man få tilgang til main thread og så kjøre kode på den for å oppdatere UI.
-                    DispatchQueue.main.async {
-                        self.collectionView.reloadData()
-                    }
-                    
-                    for character in characterResponse.results {
-                        print(character.name)
-                    }
-                } catch let error {
-                    print(error)
-                }
-                
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let character = characters[indexPath.item]
+        print("selected name: \(character.name)")
+        
+        let delegate =  (UIApplication.shared.delegate as! AppDelegate)
+        let context = delegate.persistentContainer.viewContext
+      
+        for favorite in myFavorites{
+            if (favorite.name == character.name){
+                context.delete(favorite)
+                delegate.saveContext()
+                collectionView.reloadData()
+                self.viewDidLoad()
+                return
             }
         }
         
-        task.resume()
+        let charDict = [ "name" : character.name,
+                         "url" : character.url] as [String : Any]
+        
+        _ = CharacterEntity.init(attributes: charDict, managedObjectContext: context)
+        delegate.saveContext()
+        self.viewDidLoad()
+        return
+        
+        
+        
+    }
+    
+    /*
+    func reloadCollectionView() {
+        let delegate =  (UIApplication.shared.delegate as! AppDelegate)
+        let context = delegate.persistentContainer.viewContext
+        
+        let fetchRequest = NSFetchRequest<CharacterEntity>(entityName: "CharacterEntity")
+        myFavorites = try! context.fetch(fetchRequest)
+        print("Size after reload: \(myFavorites.count)")
+        self.viewDidLoad()
+    }
+ */
+
+    
+    func loadDataFromServer() {
+        characters.removeAll()
+        
+        for index in 1...3 {
+            
+            let task = URLSession.shared.dataTask(with: URL.init(string: "https://swapi.co/api/people/?page=\(index)&format=json")!) { (data, response, error) in
+                
+                if let actualData = data {
+                    
+                    let decoder = JSONDecoder()
+                    
+                    do {
+                        let characterResponse = try decoder.decode(CharacterResponse.self, from: actualData)
+                        
+                        self.characters.append(contentsOf: characterResponse.results)
+                        self.characters = self.characters.sorted{ $0.name < $1.name}
+                        //self.characters = characterResponse.results
+                        
+                        //Siden kun main thread har lov til å gjøre UI opdpateringer så må man få tilgang til main thread og så kjøre kode på den for å oppdatere UI.
+                        DispatchQueue.main.async {
+                            self.collectionView.reloadData()
+                        }
+                        
+                        
+                    } catch let error {
+                        print(error)
+                    }
+                    
+                }
+            }
+            
+            task.resume()
+        }
+        
+        
     }
     
 
