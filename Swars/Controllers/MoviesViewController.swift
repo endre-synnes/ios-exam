@@ -84,7 +84,8 @@ class MoviesViewController: UIViewController, UITableViewDataSource, UITableView
                 do {
                     let movieResponse = try decoder.decode(MovieResponse.self, from: actualData)
                     self.movies = movieResponse.results
-                    
+                    self.movies = self.movies.sorted{ $0.episode_id < $1.episode_id}
+
                     //Siden kun main thread har lov til å gjøre UI opdpateringer så må man få tilgang til main thread og så kjøre kode på den for å oppdatere UI.
                     DispatchQueue.main.async {
                         self.tableView.reloadData()
