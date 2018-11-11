@@ -45,7 +45,7 @@ class MovieDetailsViewController: UIViewController {
         
         print("my favorites")
         for i in myFavorites {
-            print(i)
+            print(i.title ?? "")
         }
         
         if myFavorites.contains(where: {$0.title == movie?.title}) {

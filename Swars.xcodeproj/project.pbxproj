@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		EE3AAA3921985EB1002C4FA6 /* CharacterTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE3AAA3721985EB1002C4FA6 /* CharacterTableViewCell.swift */; };
+		EE3AAA3A21985EB1002C4FA6 /* CharacterTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = EE3AAA3821985EB1002C4FA6 /* CharacterTableViewCell.xib */; };
 		EE47BD1E21947E19007A61D7 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE47BD1D21947E19007A61D7 /* AppDelegate.swift */; };
 		EE47BD2521947E19007A61D7 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EE47BD2321947E19007A61D7 /* Main.storyboard */; };
 		EE47BD2721947E1B007A61D7 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EE47BD2621947E1B007A61D7 /* Assets.xcassets */; };
@@ -39,6 +41,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		EE3AAA3721985EB1002C4FA6 /* CharacterTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterTableViewCell.swift; sourceTree = "<group>"; };
+		EE3AAA3821985EB1002C4FA6 /* CharacterTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CharacterTableViewCell.xib; sourceTree = "<group>"; };
 		EE47BD1A21947E19007A61D7 /* Swars.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Swars.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		EE47BD1D21947E19007A61D7 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		EE47BD2421947E19007A61D7 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -109,6 +113,7 @@
 				EE8BE4202194E9EA005B8EC2 /* Utils */,
 				EE47BD1D21947E19007A61D7 /* AppDelegate.swift */,
 				EE47BD2321947E19007A61D7 /* Main.storyboard */,
+				EE3AAA3821985EB1002C4FA6 /* CharacterTableViewCell.xib */,
 				EE47BD2621947E1B007A61D7 /* Assets.xcassets */,
 				EE47BD2821947E1B007A61D7 /* LaunchScreen.storyboard */,
 				EE47BD2B21947E1B007A61D7 /* Info.plist */,
@@ -134,6 +139,7 @@
 				EE8BE3EE2194DA3E005B8EC2 /* MoviesTableViewCell.swift */,
 				EEE18156219594B80002FD74 /* MovieDetailsViewController.swift */,
 				EE7C2B7C2195DEB200F67AD2 /* CharacterCollectionViewCell.swift */,
+				EE3AAA3721985EB1002C4FA6 /* CharacterTableViewCell.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -251,6 +257,7 @@
 				EE47BD2A21947E1B007A61D7 /* LaunchScreen.storyboard in Resources */,
 				EE47BD2721947E1B007A61D7 /* Assets.xcassets in Resources */,
 				EE47BD2521947E19007A61D7 /* Main.storyboard in Resources */,
+				EE3AAA3A21985EB1002C4FA6 /* CharacterTableViewCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -275,6 +282,7 @@
 				EEE18157219594B80002FD74 /* MovieDetailsViewController.swift in Sources */,
 				EE8BE41E2194E607005B8EC2 /* MovieEntity+CoreDataClass.swift in Sources */,
 				EE8BE41D2194E607005B8EC2 /* CharacterEntity+CoreDataProperties.swift in Sources */,
+				EE3AAA3921985EB1002C4FA6 /* CharacterTableViewCell.swift in Sources */,
 				EE8BE3F32194DCDC005B8EC2 /* CharacterResponse.swift in Sources */,
 				EE8BE3F12194DC1E005B8EC2 /* MovieResponse.swift in Sources */,
 				EE8BE41C2194E607005B8EC2 /* CharacterEntity+CoreDataClass.swift in Sources */,
