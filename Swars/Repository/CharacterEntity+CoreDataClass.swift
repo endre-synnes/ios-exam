@@ -2,7 +2,7 @@
 //  CharacterEntity+CoreDataClass.swift
 //  Swars
 //
-//  Created by Endre Mikal Synnes on 08/11/2018.
+//  Created by Endre Mikal Synnes on 11/11/2018.
 //  Copyright © 2018 Endre Mikal Synnes. All rights reserved.
 //
 //
@@ -13,10 +13,12 @@ import CoreData
 @objc(CharacterEntity)
 public class CharacterEntity: NSManagedObject {
 
+    
     convenience init?(attributes: [String : Any], managedObjectContext: NSManagedObjectContext) {
         
         guard let name = attributes["name"] as? String,
-            let url = attributes["url"] as? String else {
+            let url = attributes["url"] as? String,
+            let movies = attributes["movies"] as? String else {
                 return nil
         }
         
@@ -25,5 +27,6 @@ public class CharacterEntity: NSManagedObject {
         
         self.name = name
         self.url = url
+        self.movies = movies
     }
 }

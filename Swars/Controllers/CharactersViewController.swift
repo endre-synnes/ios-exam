@@ -81,8 +81,19 @@ class CharactersViewController: UIViewController, UICollectionViewDataSource, UI
             }
         }
         
+        var movies = ""
+        
+        for movie in character.films {
+            let movieStrArray = movie.components(separatedBy: "/")
+            if movieStrArray.count < 3 {continue}
+            
+            let str = movieStrArray[movieStrArray.count - 2]
+            movies.append(contentsOf: "\(str),")
+        }
+        
         let charDict = [ "name" : character.name,
-                         "url" : character.url] as [String : Any]
+                         "url" : character.url,
+                         "movies" : movies] as [String : Any]
         
         _ = CharacterEntity.init(attributes: charDict, managedObjectContext: context)
         delegate.saveContext()

@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		EE3AAA3921985EB1002C4FA6 /* CharacterTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE3AAA3721985EB1002C4FA6 /* CharacterTableViewCell.swift */; };
 		EE3AAA3A21985EB1002C4FA6 /* CharacterTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = EE3AAA3821985EB1002C4FA6 /* CharacterTableViewCell.xib */; };
+		EE3AAA3D21986B01002C4FA6 /* CharacterEntity+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE3AAA3B21986B01002C4FA6 /* CharacterEntity+CoreDataClass.swift */; };
+		EE3AAA3E21986B01002C4FA6 /* CharacterEntity+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE3AAA3C21986B01002C4FA6 /* CharacterEntity+CoreDataProperties.swift */; };
 		EE47BD1E21947E19007A61D7 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE47BD1D21947E19007A61D7 /* AppDelegate.swift */; };
 		EE47BD2521947E19007A61D7 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EE47BD2321947E19007A61D7 /* Main.storyboard */; };
 		EE47BD2721947E1B007A61D7 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EE47BD2621947E1B007A61D7 /* Assets.xcassets */; };
@@ -23,8 +25,6 @@
 		EE8BE3F12194DC1E005B8EC2 /* MovieResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE8BE3F02194DC1E005B8EC2 /* MovieResponse.swift */; };
 		EE8BE3F32194DCDC005B8EC2 /* CharacterResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE8BE3F22194DCDC005B8EC2 /* CharacterResponse.swift */; };
 		EE8BE3F72194DE00005B8EC2 /* SwarsRepository.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = EE8BE3F52194DE00005B8EC2 /* SwarsRepository.xcdatamodeld */; };
-		EE8BE41C2194E607005B8EC2 /* CharacterEntity+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE8BE4182194E607005B8EC2 /* CharacterEntity+CoreDataClass.swift */; };
-		EE8BE41D2194E607005B8EC2 /* CharacterEntity+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE8BE4192194E607005B8EC2 /* CharacterEntity+CoreDataProperties.swift */; };
 		EE8BE41E2194E607005B8EC2 /* MovieEntity+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE8BE41A2194E607005B8EC2 /* MovieEntity+CoreDataClass.swift */; };
 		EE8BE41F2194E607005B8EC2 /* MovieEntity+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE8BE41B2194E607005B8EC2 /* MovieEntity+CoreDataProperties.swift */; };
 		EEE18157219594B80002FD74 /* MovieDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEE18156219594B80002FD74 /* MovieDetailsViewController.swift */; };
@@ -43,6 +43,8 @@
 /* Begin PBXFileReference section */
 		EE3AAA3721985EB1002C4FA6 /* CharacterTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterTableViewCell.swift; sourceTree = "<group>"; };
 		EE3AAA3821985EB1002C4FA6 /* CharacterTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CharacterTableViewCell.xib; sourceTree = "<group>"; };
+		EE3AAA3B21986B01002C4FA6 /* CharacterEntity+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CharacterEntity+CoreDataClass.swift"; sourceTree = "<group>"; };
+		EE3AAA3C21986B01002C4FA6 /* CharacterEntity+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CharacterEntity+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		EE47BD1A21947E19007A61D7 /* Swars.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Swars.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		EE47BD1D21947E19007A61D7 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		EE47BD2421947E19007A61D7 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -61,8 +63,6 @@
 		EE8BE3F02194DC1E005B8EC2 /* MovieResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieResponse.swift; sourceTree = "<group>"; };
 		EE8BE3F22194DCDC005B8EC2 /* CharacterResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterResponse.swift; sourceTree = "<group>"; };
 		EE8BE3F62194DE00005B8EC2 /* SwarsRepository.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = SwarsRepository.xcdatamodel; sourceTree = "<group>"; };
-		EE8BE4182194E607005B8EC2 /* CharacterEntity+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CharacterEntity+CoreDataClass.swift"; sourceTree = "<group>"; };
-		EE8BE4192194E607005B8EC2 /* CharacterEntity+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CharacterEntity+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		EE8BE41A2194E607005B8EC2 /* MovieEntity+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MovieEntity+CoreDataClass.swift"; sourceTree = "<group>"; };
 		EE8BE41B2194E607005B8EC2 /* MovieEntity+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MovieEntity+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		EEE18156219594B80002FD74 /* MovieDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieDetailsViewController.swift; sourceTree = "<group>"; };
@@ -156,8 +156,8 @@
 		EE8BE3F42194DDD7005B8EC2 /* Repository */ = {
 			isa = PBXGroup;
 			children = (
-				EE8BE4182194E607005B8EC2 /* CharacterEntity+CoreDataClass.swift */,
-				EE8BE4192194E607005B8EC2 /* CharacterEntity+CoreDataProperties.swift */,
+				EE3AAA3B21986B01002C4FA6 /* CharacterEntity+CoreDataClass.swift */,
+				EE3AAA3C21986B01002C4FA6 /* CharacterEntity+CoreDataProperties.swift */,
 				EE8BE41A2194E607005B8EC2 /* MovieEntity+CoreDataClass.swift */,
 				EE8BE41B2194E607005B8EC2 /* MovieEntity+CoreDataProperties.swift */,
 				EE8BE3F52194DE00005B8EC2 /* SwarsRepository.xcdatamodeld */,
@@ -276,16 +276,16 @@
 			buildActionMask = 2147483647;
 			files = (
 				EE7C2B7D2195DEB200F67AD2 /* CharacterCollectionViewCell.swift in Sources */,
+				EE3AAA3D21986B01002C4FA6 /* CharacterEntity+CoreDataClass.swift in Sources */,
 				EE47BD46219493A1007A61D7 /* CharactersViewController.swift in Sources */,
 				EE7C2B7B2195DAAC00F67AD2 /* Helper.swift in Sources */,
 				EE47BD4421948F4A007A61D7 /* FavoritesViewController.swift in Sources */,
 				EEE18157219594B80002FD74 /* MovieDetailsViewController.swift in Sources */,
 				EE8BE41E2194E607005B8EC2 /* MovieEntity+CoreDataClass.swift in Sources */,
-				EE8BE41D2194E607005B8EC2 /* CharacterEntity+CoreDataProperties.swift in Sources */,
 				EE3AAA3921985EB1002C4FA6 /* CharacterTableViewCell.swift in Sources */,
+				EE3AAA3E21986B01002C4FA6 /* CharacterEntity+CoreDataProperties.swift in Sources */,
 				EE8BE3F32194DCDC005B8EC2 /* CharacterResponse.swift in Sources */,
 				EE8BE3F12194DC1E005B8EC2 /* MovieResponse.swift in Sources */,
-				EE8BE41C2194E607005B8EC2 /* CharacterEntity+CoreDataClass.swift in Sources */,
 				EE8BE3F72194DE00005B8EC2 /* SwarsRepository.xcdatamodeld in Sources */,
 				EE8BE3EF2194DA3E005B8EC2 /* MoviesTableViewCell.swift in Sources */,
 				EE47BD1E21947E19007A61D7 /* AppDelegate.swift in Sources */,

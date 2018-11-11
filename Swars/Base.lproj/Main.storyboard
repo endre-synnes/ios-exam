@@ -230,8 +230,12 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="pnY-h8-cQk">
+                                <rect key="frame" x="0.0" y="89" width="375" height="529"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </tableView>
                             <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="coq-g9-x0U">
-                                <rect key="frame" x="106" y="83" width="163" height="29"/>
+                                <rect key="frame" x="106" y="47" width="163" height="29"/>
                                 <segments>
                                     <segment title="Movies"/>
                                     <segment title="Characters"/>
@@ -240,20 +244,16 @@
                                     <action selector="switchFavoritesViewAction:" destination="0u9-6c-fna" eventType="valueChanged" id="id4-MJ-KiJ"/>
                                 </connections>
                             </segmentedControl>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="pnY-h8-cQk">
-                                <rect key="frame" x="0.0" y="119" width="375" height="499"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                            </tableView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="ATR-sC-INS" firstAttribute="bottom" secondItem="pnY-h8-cQk" secondAttribute="bottom" id="4kA-ya-Pac"/>
-                            <constraint firstItem="pnY-h8-cQk" firstAttribute="top" secondItem="coq-g9-x0U" secondAttribute="bottom" constant="8" id="Hmx-t3-Zbn"/>
                             <constraint firstItem="ATR-sC-INS" firstAttribute="trailing" secondItem="coq-g9-x0U" secondAttribute="trailing" constant="106" id="Wrk-9M-qAM"/>
                             <constraint firstItem="ATR-sC-INS" firstAttribute="trailing" secondItem="pnY-h8-cQk" secondAttribute="trailing" id="XXF-ok-lsl"/>
                             <constraint firstItem="coq-g9-x0U" firstAttribute="leading" secondItem="ATR-sC-INS" secondAttribute="leading" constant="106" id="gF7-9S-gI8"/>
-                            <constraint firstItem="coq-g9-x0U" firstAttribute="top" secondItem="ATR-sC-INS" secondAttribute="top" constant="63" id="iFD-5y-oNY"/>
+                            <constraint firstItem="pnY-h8-cQk" firstAttribute="top" secondItem="coq-g9-x0U" secondAttribute="bottom" constant="14" id="hAN-HM-F6H"/>
                             <constraint firstItem="pnY-h8-cQk" firstAttribute="leading" secondItem="ATR-sC-INS" secondAttribute="leading" id="xjI-vp-x3M"/>
+                            <constraint firstItem="coq-g9-x0U" firstAttribute="top" secondItem="ATR-sC-INS" secondAttribute="top" constant="27" id="yCL-en-bl3"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="ATR-sC-INS"/>
                     </view>

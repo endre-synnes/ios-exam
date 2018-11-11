@@ -24,7 +24,7 @@ class CharacterTableViewCell: UITableViewCell {
         // Configure the view for the selected state
     }
     
-    func customInit(name: String, movies: String) {
+    func customInit(name: String, movies: String? = "") {
         nameLabel.text = name
         moviesLabel.text = movies
     }

@@ -17,6 +17,14 @@ class FavoritesViewController: UIViewController, UITableViewDataSource, UITableV
     var favoriteCharacters = [CharacterEntity]()
 
     @IBAction func switchFavoritesViewAction(_ sender: UISegmentedControl) {
+        let index = sender.selectedSegmentIndex
+        
+        if index == 0 {
+            selectedState = SegmentStatus.movies
+        } else {
+            selectedState = SegmentStatus.characters
+        }
+        tableView.reloadData()
     }
     
     @IBOutlet weak var tableView: UITableView!
@@ -28,24 +36,24 @@ class FavoritesViewController: UIViewController, UITableViewDataSource, UITableV
     
     var selectedState : SegmentStatus!
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        loadDatabase()
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        tableView.dataSource = self
+        tableView.delegate = self
+
         self.navigationItem.title = "Favorites"
 
         loadDatabase()
         selectedState = SegmentStatus.movies
         
-        let nib : UINib
-
-        if selectedState == SegmentStatus.movies {
-            nib = UINib(nibName: "MoviesTableViewCell", bundle: nil)
-            tableView.register(nib, forCellReuseIdentifier: "movieCell")
-        } else {
-            nib = UINib(nibName: "CharacterTableViewCell", bundle: nil)
-            tableView.register(nib, forCellReuseIdentifier: "characterTableCell")
-        }
-
-        // Do any additional setup after loading the view.
+        let nib = UINib(nibName: "CharacterTableViewCell", bundle: nil)
+        tableView.register(nib, forCellReuseIdentifier: "characterTableCell")
+        
     }
     
     func loadDatabase() {
@@ -57,6 +65,8 @@ class FavoritesViewController: UIViewController, UITableViewDataSource, UITableV
         
         let fetchMoviesRequest = NSFetchRequest<MovieEntity>(entityName: "MovieEntity")
         favoriteMovies = try! context.fetch(fetchMoviesRequest)
+        
+        tableView.reloadData()
     }
     
 
@@ -70,17 +80,16 @@ class FavoritesViewController: UIViewController, UITableViewDataSource, UITableV
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
+        let cell = tableView.dequeueReusableCell(withIdentifier: "characterTableCell") as! CharacterTableViewCell
+        
         if selectedState == SegmentStatus.movies {
-            let cell = tableView.dequeueReusableCell(withIdentifier: "movieCell") as! MoviesTableViewCell
-            cell.movieNameLabel.text = self.favoriteMovies[indexPath.row].title
-            return cell
+            cell.customInit(name: self.favoriteMovies[indexPath.row].title ?? "nil")
         } else {
-            let cell = tableView.dequeueReusableCell(withIdentifier: "characterTableCell") as! CharacterTableViewCell
             let character = self.favoriteCharacters[indexPath.row]
-            //TODO use movies...
-            cell.customInit(name: character.name ?? "nil", movies: character.url ?? "nil")
-            return cell
+            cell.customInit(name: character.name ?? "nil", movies: character.movies ?? "nil")
         }
+        
+        return cell
 
     }
     
