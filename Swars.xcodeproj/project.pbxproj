@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		EE3AAA3921985EB1002C4FA6 /* CharacterTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE3AAA3721985EB1002C4FA6 /* CharacterTableViewCell.swift */; };
+		EE3AAA3921985EB1002C4FA6 /* FavoriteTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE3AAA3721985EB1002C4FA6 /* FavoriteTableViewCell.swift */; };
 		EE3AAA3A21985EB1002C4FA6 /* CharacterTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = EE3AAA3821985EB1002C4FA6 /* CharacterTableViewCell.xib */; };
 		EE3AAA3D21986B01002C4FA6 /* CharacterEntity+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE3AAA3B21986B01002C4FA6 /* CharacterEntity+CoreDataClass.swift */; };
 		EE3AAA3E21986B01002C4FA6 /* CharacterEntity+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE3AAA3C21986B01002C4FA6 /* CharacterEntity+CoreDataProperties.swift */; };
@@ -41,7 +41,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		EE3AAA3721985EB1002C4FA6 /* CharacterTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterTableViewCell.swift; sourceTree = "<group>"; };
+		EE3AAA3721985EB1002C4FA6 /* FavoriteTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteTableViewCell.swift; sourceTree = "<group>"; };
 		EE3AAA3821985EB1002C4FA6 /* CharacterTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CharacterTableViewCell.xib; sourceTree = "<group>"; };
 		EE3AAA3B21986B01002C4FA6 /* CharacterEntity+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CharacterEntity+CoreDataClass.swift"; sourceTree = "<group>"; };
 		EE3AAA3C21986B01002C4FA6 /* CharacterEntity+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CharacterEntity+CoreDataProperties.swift"; sourceTree = "<group>"; };
@@ -139,7 +139,7 @@
 				EE8BE3EE2194DA3E005B8EC2 /* MoviesTableViewCell.swift */,
 				EEE18156219594B80002FD74 /* MovieDetailsViewController.swift */,
 				EE7C2B7C2195DEB200F67AD2 /* CharacterCollectionViewCell.swift */,
-				EE3AAA3721985EB1002C4FA6 /* CharacterTableViewCell.swift */,
+				EE3AAA3721985EB1002C4FA6 /* FavoriteTableViewCell.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -282,7 +282,7 @@
 				EE47BD4421948F4A007A61D7 /* FavoritesViewController.swift in Sources */,
 				EEE18157219594B80002FD74 /* MovieDetailsViewController.swift in Sources */,
 				EE8BE41E2194E607005B8EC2 /* MovieEntity+CoreDataClass.swift in Sources */,
-				EE3AAA3921985EB1002C4FA6 /* CharacterTableViewCell.swift in Sources */,
+				EE3AAA3921985EB1002C4FA6 /* FavoriteTableViewCell.swift in Sources */,
 				EE3AAA3E21986B01002C4FA6 /* CharacterEntity+CoreDataProperties.swift in Sources */,
 				EE8BE3F32194DCDC005B8EC2 /* CharacterResponse.swift in Sources */,
 				EE8BE3F12194DC1E005B8EC2 /* MovieResponse.swift in Sources */,

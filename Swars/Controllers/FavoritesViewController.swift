@@ -80,7 +80,7 @@ class FavoritesViewController: UIViewController, UITableViewDataSource, UITableV
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        let cell = tableView.dequeueReusableCell(withIdentifier: "characterTableCell") as! CharacterTableViewCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: "characterTableCell") as! FavoriteTableViewCell
         
         if selectedState == SegmentStatus.movies {
             cell.customInit(name: self.favoriteMovies[indexPath.row].title ?? "nil")
