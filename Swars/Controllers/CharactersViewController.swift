@@ -81,15 +81,16 @@ class CharactersViewController: UIViewController, UICollectionViewDataSource, UI
             }
         }
         
-        var movies = ""
+        var tmpStringArray = [String]()
         
         for movie in character.films {
             let movieStrArray = movie.components(separatedBy: "/")
             if movieStrArray.count < 3 {continue}
             
-            let str = movieStrArray[movieStrArray.count - 2]
-            movies.append(contentsOf: "\(str),")
+            tmpStringArray.append(movieStrArray[movieStrArray.count - 2])
         }
+        
+        let movies = tmpStringArray.sorted().joined(separator: ",")
         
         let charDict = [ "name" : character.name,
                          "url" : character.url,
