@@ -11,6 +11,7 @@ import UIKit
 class FavoriteTableViewCell: UITableViewCell {
 
     @IBOutlet weak var nameLabel: UILabel!
+    
     @IBOutlet weak var moviesLabel: UILabel!
     
     override func awakeFromNib() {

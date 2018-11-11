@@ -43,11 +43,6 @@ class MovieDetailsViewController: UIViewController {
     func checkForFavorite() -> Bool {
         loadDatabase(action: DbAction.get)
         
-        print("my favorites")
-        for i in myFavorites {
-            print(i.title ?? "")
-        }
-        
         if myFavorites.contains(where: {$0.title == movie?.title}) {
             favoriteBtnOutlet.setTitle("Remove from Favorites", for: .normal)
             return true

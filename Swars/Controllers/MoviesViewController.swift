@@ -59,7 +59,7 @@ class MoviesViewController: UIViewController, UITableViewDataSource, UITableView
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        print("did hit did select for index: \(indexPath)")
+        print("did hit did select for index: \(indexPath.row)")
 
         tableView.deselectRow(at: indexPath, animated: true)
         
@@ -67,6 +67,7 @@ class MoviesViewController: UIViewController, UITableViewDataSource, UITableView
     }
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        print("in movie prepare")
         if let destination = segue.destination as? MovieDetailsViewController, let indexPath = tableView.indexPathForSelectedRow {
             destination.movie = movies[indexPath.row]
         }

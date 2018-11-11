@@ -15,6 +15,7 @@ class FavoritesViewController: UIViewController, UITableViewDataSource, UITableV
     //this is the view
     var favoriteMovies = [MovieEntity]()
     var favoriteCharacters = [CharacterEntity]()
+    var movies = [Movie]()
 
     @IBAction func switchFavoritesViewAction(_ sender: UISegmentedControl) {
         let index = sender.selectedSegmentIndex
@@ -44,15 +45,16 @@ class FavoritesViewController: UIViewController, UITableViewDataSource, UITableV
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.dataSource = self
-        tableView.delegate = self
+        //tableView.delegate = self
 
         self.navigationItem.title = "Favorites"
-
+        
+        loadDataFromServer()
         loadDatabase()
         selectedState = SegmentStatus.movies
         
-        let nib = UINib(nibName: "CharacterTableViewCell", bundle: nil)
-        tableView.register(nib, forCellReuseIdentifier: "characterTableCell")
+        //let nib = UINib(nibName: "CharacterTableViewCell", bundle: nil)
+        //tableView.register(nib, forCellReuseIdentifier: "characterTableCell")
         
     }
     
@@ -80,17 +82,78 @@ class FavoritesViewController: UIViewController, UITableViewDataSource, UITableV
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        let cell = tableView.dequeueReusableCell(withIdentifier: "characterTableCell") as! FavoriteTableViewCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: "favoriteTableCell") as! FavoriteTableViewCell
         
         if selectedState == SegmentStatus.movies {
             cell.customInit(name: self.favoriteMovies[indexPath.row].title ?? "nil")
         } else {
             let character = self.favoriteCharacters[indexPath.row]
             cell.customInit(name: character.name ?? "nil", movies: character.movies ?? "nil")
+            cell.selectionStyle = .none
+
         }
         
         return cell
-
     }
     
+    func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
+        return true
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        print("did hit did select for index: \(indexPath)")
+        
+        self.tableView.deselectRow(at: indexPath, animated: true)
+        
+        self.performSegue(withIdentifier: "segueFromFavoriteToMovie", sender: self)
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        print("in favorite prepare")
+        if let destination = segue.destination as? MovieDetailsViewController, let indexPath = tableView.indexPathForSelectedRow {
+            
+            print("lopping movies")
+            for i in movies {
+                print("episode ids: \(i.episode_id)")
+            }
+            
+            print("selected: \(favoriteMovies[indexPath.row].episode_id)")
+            
+            if let movie = movies.first(where: {$0.episode_id == Int(favoriteMovies[indexPath.row].episode_id)}) {
+                
+                print("in equal...... ")
+                
+                destination.movie = movie
+            } else {
+                let alert = UIAlertController(title: "Movie not found!", message: "Your favorite movie is not found in our API", preferredStyle: .alert)
+                
+                alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))
+                self.present(alert, animated: true)
+            }
+        }
+    }
+    
+    func loadDataFromServer() {
+        let task = URLSession.shared.dataTask(with: URL.init(string: "https://swapi.co/api/films/?format=json")!) { (data, response, error) in
+            
+            if let actualData = data {
+                
+                _ = String.init(data: actualData, encoding: String.Encoding.utf8)
+                
+                let decoder = JSONDecoder()
+                
+                do {
+                    let movieResponse = try decoder.decode(MovieResponse.self, from: actualData)
+                    self.movies = movieResponse.results
+                    self.movies = self.movies.sorted{ $0.episode_id < $1.episode_id}
+                    
+                } catch let error {
+                    print(error)
+                }
+                
+            }
+        }
+        
+        task.resume()
+    }
 }
