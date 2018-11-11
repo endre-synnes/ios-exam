@@ -48,9 +48,6 @@
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cTh-ps-fvd">
                                         <rect key="frame" x="0.0" y="162" width="375" height="30"/>
                                         <state key="normal" title="Button"/>
-                                        <connections>
-                                            <action selector="favoriteBtn:" destination="dVG-PN-xVu" eventType="touchUpInside" id="jUw-uP-sSd"/>
-                                        </connections>
                                     </button>
                                 </subviews>
                             </stackView>
@@ -66,6 +63,7 @@
                     </view>
                     <connections>
                         <outlet property="directorLabel" destination="RGd-iW-tmI" id="GQc-9k-GMn"/>
+                        <outlet property="favoriteBtnOutlet" destination="cTh-ps-fvd" id="aug-qt-K2V"/>
                         <outlet property="movieTitleLabel" destination="Yj6-9B-gqq" id="Ljl-ou-YlG"/>
                         <outlet property="producerLabel" destination="5jv-U2-flF" id="cUU-kK-DOZ"/>
                         <outlet property="releaseDateLabel" destination="enJ-Ux-Y76" id="xDx-VA-VhW"/>

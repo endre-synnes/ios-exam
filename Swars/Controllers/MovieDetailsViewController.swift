@@ -24,30 +24,14 @@ class MovieDetailsViewController: UIViewController {
     @IBOutlet weak var producerLabel: UILabel!
     @IBOutlet weak var releaseDateLabel: UILabel!
     
-    //@IBOutlet weak var favoriteBtn: UIButton!
-    
-    @IBAction func favoriteBtn(_ sender: UIButton) {
-        //sender.setTitle("buttonName", forState: .normal)
-        
-        if checkForFavorite() {
-            sender.setTitle("Remove from Favorites", for: .normal)
-        } else {
-            sender.setTitle("Add to Favorites", for: .normal)
-        }
-        
-        btnPresed()
-
-    }
-    
+    @IBOutlet weak var favoriteBtnOutlet: UIButton!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         self.navigationItem.title = movie?.title
-        
-
-        //favoriteBtn.addTarget(self, action: #selector(self.buttonAction), for: .touchUpInside)
-
-        //self.buttonPressed(sender: self.favoriteBtn)
+    
+        favoriteBtnOutlet.addTarget(self, action: #selector(MovieDetailsViewController.btnPresed), for: .touchUpInside)
+        _ = checkForFavorite()
 
         movieTitleLabel.text = "Title: \(movie?.title ?? "")"
         directorLabel.text = "Director: \(movie?.director ?? "")"
@@ -59,21 +43,22 @@ class MovieDetailsViewController: UIViewController {
     func checkForFavorite() -> Bool {
         loadDatabase(action: DbAction.get)
         
+        print("my favorites")
+        for i in myFavorites {
+            print(i)
+        }
+        
         if myFavorites.contains(where: {$0.title == movie?.title}) {
-            //favoriteBtn.setTitle("Remove from Favorites", for: .normal)
-            //loadDatabase(action: DbAction.delete)
-            // delete
+            favoriteBtnOutlet.setTitle("Remove from Favorites", for: .normal)
             return true
         } else {
-            //favoriteBtn.setTitle("Add to Favorite", for: .normal)
-            //loadDatabase(action: DbAction.add)
+            favoriteBtnOutlet.setTitle("Add to Favorite", for: .normal)
             return false
         }
         
     }
     
-    func btnPresed(){
-        print("btn pressed")
+    @objc func btnPresed(){
         if checkForFavorite() {
             loadDatabase(action: DbAction.delete)
         } else {
@@ -96,37 +81,19 @@ class MovieDetailsViewController: UIViewController {
             let movieDict = [ "title" : movie!.title,
                               "episode_id" : movie!.episode_id] as [String : Any]
             
-            _ = CharacterEntity.init(attributes: movieDict, managedObjectContext: context)
+            _ = MovieEntity.init(attributes: movieDict, managedObjectContext: context)
             delegate.saveContext()
+            self.viewDidLoad()
             
         } else if action == DbAction.delete {
             if let favorite = myFavorites.first(where: {$0.title == movie!.title}) {
                 context.delete(favorite)
                 delegate.saveContext()
+                self.viewDidLoad()
             } else {
                 print("Favorite not found")
                 return
             }
         }
-        
     }
-    
-    /*
-    @IBAction func buttonPressed(sender: AnyObject) {
-        //println("Called Action"). This method has been renamed to print() in Swift 2.0
-        print("Called Action")
-    }
-     */
-    
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
 }
