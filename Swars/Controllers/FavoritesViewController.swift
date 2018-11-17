@@ -101,14 +101,43 @@ class FavoritesViewController: UIViewController, UITableViewDataSource, UITableV
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
         print("did hit did select for index: \(indexPath)")
         
-        self.tableView.deselectRow(at: indexPath, animated: true)
+        if selectedState == SegmentStatus.movies {
+            self.tableView.deselectRow(at: indexPath, animated: true)
+            
+            self.performSegue(withIdentifier: "segueFromFavoriteToMovie", sender: self)
+        } else {
+            
+            let character = favoriteCharacters[indexPath.row]
+            
+            let movies = character.movies
+            
+            let alert = UIAlertController(title: "\(character.name ?? "Name not defined")", message: "\(movies ?? "No mvoies")", preferredStyle: .alert)
+            
+            alert.addAction(UIAlertAction(title: "Remove Favorite", style: .default, handler: {action in
+                self.viewDidLoad()
+            }))
+            alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+            self.present(alert, animated: true)
+        }
         
-        self.performSegue(withIdentifier: "segueFromFavoriteToMovie", sender: self)
+    }
+    
+    override func shouldPerformSegue(withIdentifier identifier: String, sender: Any?) -> Bool {
+        if selectedState == SegmentStatus.movies {
+            return true
+        }
+        print("in false")
+        return false
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        
+        if selectedState == SegmentStatus.movies {
+        
+        
         print("in favorite prepare")
         if let destination = segue.destination as? MovieDetailsViewController, let indexPath = tableView.indexPathForSelectedRow {
             
