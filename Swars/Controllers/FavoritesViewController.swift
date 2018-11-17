@@ -138,26 +138,27 @@ class FavoritesViewController: UIViewController, UITableViewDataSource, UITableV
         if selectedState == SegmentStatus.movies {
         
         
-        print("in favorite prepare")
-        if let destination = segue.destination as? MovieDetailsViewController, let indexPath = tableView.indexPathForSelectedRow {
-            
-            print("lopping movies")
-            for i in movies {
-                print("episode ids: \(i.episode_id)")
-            }
-            
-            print("selected: \(favoriteMovies[indexPath.row].episode_id)")
-            
-            if let movie = movies.first(where: {$0.episode_id == Int(favoriteMovies[indexPath.row].episode_id)}) {
+            print("in favorite prepare")
+            if let destination = segue.destination as? MovieDetailsViewController, let indexPath = tableView.indexPathForSelectedRow {
                 
-                print("in equal...... ")
+                print("lopping movies")
+                for i in movies {
+                    print("episode ids: \(i.episode_id)")
+                }
                 
-                destination.movie = movie
-            } else {
-                let alert = UIAlertController(title: "Movie not found!", message: "Your favorite movie is not found in our API", preferredStyle: .alert)
+                print("selected: \(favoriteMovies[indexPath.row].episode_id)")
                 
-                alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))
-                self.present(alert, animated: true)
+                if let movie = movies.first(where: {$0.episode_id == Int(favoriteMovies[indexPath.row].episode_id)}) {
+                    
+                    print("in equal...... ")
+                    
+                    destination.movie = movie
+                } else {
+                    let alert = UIAlertController(title: "Movie not found!", message: "Your favorite movie is not found in our API", preferredStyle: .alert)
+                    
+                    alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))
+                    self.present(alert, animated: true)
+                }
             }
         }
     }
