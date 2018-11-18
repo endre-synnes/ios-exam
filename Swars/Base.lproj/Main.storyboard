@@ -19,7 +19,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" restorationIdentifier="detailsStack" axis="vertical" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="Q5D-WE-ZtC">
-                                <rect key="frame" x="0.0" y="51" width="375" height="192"/>
+                                <rect key="frame" x="0.0" y="95" width="375" height="192"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Yj6-9B-gqq">
                                         <rect key="frame" x="0.0" y="0.0" width="375" height="20.5"/>
@@ -247,13 +247,13 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mxa-0m-DL2">
-                                                    <rect key="frame" x="15" y="11" width="205" height="21"/>
+                                                    <rect key="frame" x="15" y="11" width="260" height="21"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="252" verticalHuggingPriority="251" text="Label" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Uw3-d0-ciP">
-                                                    <rect key="frame" x="263" y="11" width="42" height="21"/>
+                                                    <rect key="frame" x="318" y="11" width="42" height="21"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
@@ -272,7 +272,6 @@
                                         <connections>
                                             <outlet property="moviesLabel" destination="Uw3-d0-ciP" id="3FP-V9-NbN"/>
                                             <outlet property="nameLabel" destination="mxa-0m-DL2" id="aZg-cm-zdj"/>
-                                            <segue destination="dVG-PN-xVu" kind="show" identifier="segueFromFavoriteToMovie" id="cso-dR-rmQ"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
@@ -304,6 +303,7 @@
                     <nil key="simulatedTopBarMetrics"/>
                     <connections>
                         <outlet property="tableView" destination="pnY-h8-cQk" id="mnp-3o-Aix"/>
+                        <segue destination="dVG-PN-xVu" kind="show" identifier="segueFromFavoriteToMovie" id="8Uc-7i-6z2"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="FkT-Hy-4Tu" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -355,6 +355,6 @@
         <image name="man" width="30" height="30"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="cso-dR-rmQ"/>
+        <segue reference="1Ob-tE-L9L"/>
     </inferredMetricsTieBreakers>
 </document>

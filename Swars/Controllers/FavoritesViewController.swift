@@ -45,7 +45,7 @@ class FavoritesViewController: UIViewController, UITableViewDataSource, UITableV
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.dataSource = self
-        //tableView.delegate = self
+        tableView.delegate = self
 
         self.navigationItem.title = "Favorites"
         
@@ -103,13 +103,12 @@ class FavoritesViewController: UIViewController, UITableViewDataSource, UITableV
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
         print("did hit did select for index: \(indexPath)")
-        
+        print("MOVIE STATUS: \(selectedState.debugDescription)")
         if selectedState == SegmentStatus.movies {
             self.tableView.deselectRow(at: indexPath, animated: true)
-            
-            self.performSegue(withIdentifier: "segueFromFavoriteToMovie", sender: self)
+            let objectThtatWasTapped = favoriteMovies[indexPath.row]
+            self.performSegue(withIdentifier: "segueFromFavoriteToMovie", sender: objectThtatWasTapped)
         } else {
-            
             let character = favoriteCharacters[indexPath.row]
             
             let movies = character.movies
@@ -117,7 +116,7 @@ class FavoritesViewController: UIViewController, UITableViewDataSource, UITableV
             let alert = UIAlertController(title: "\(character.name ?? "Name not defined")", message: "\(movies ?? "No mvoies")", preferredStyle: .alert)
             
             alert.addAction(UIAlertAction(title: "Remove Favorite", style: .default, handler: {action in
-                self.viewDidLoad()
+                //self.viewDidLoad()
             }))
             alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
             self.present(alert, animated: true)
@@ -139,16 +138,16 @@ class FavoritesViewController: UIViewController, UITableViewDataSource, UITableV
         
         
             print("in favorite prepare")
-            if let destination = segue.destination as? MovieDetailsViewController, let indexPath = tableView.indexPathForSelectedRow {
+            if let destination = segue.destination as? MovieDetailsViewController, let transferObject = sender as? MovieEntity {
                 
                 print("lopping movies")
                 for i in movies {
                     print("episode ids: \(i.episode_id)")
                 }
                 
-                print("selected: \(favoriteMovies[indexPath.row].episode_id)")
+                print("selected: \(transferObject.episode_id)")
                 
-                if let movie = movies.first(where: {$0.episode_id == Int(favoriteMovies[indexPath.row].episode_id)}) {
+                if let movie = movies.first(where: {$0.episode_id == Int(transferObject.episode_id)}) {
                     
                     print("in equal...... ")
                     
