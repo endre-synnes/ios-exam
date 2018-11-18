@@ -16,6 +16,36 @@ class FavoritesViewController: UIViewController, UITableViewDataSource, UITableV
     var favoriteMovies = [MovieEntity]()
     var favoriteCharacters = [CharacterEntity]()
     var movies = [Movie]()
+    
+    func findRecommendationMovie() {
+        
+        /*
+        var resultMovie: MovieEntity?
+        
+        for character in favoriteCharacters {
+            for movie in (character.movies?.split(separator: ","))! {
+                
+                for movieEnti in favoriteMovies {
+                    if movieEnti.episode_id == movie
+                }
+            }
+        }
+        
+        for movie in favoriteMovies {
+            for character in movie.characters {
+                
+                for favChar in favoriteCharacters {
+                    
+                }
+                
+            }
+        }
+        */
+        updateRecommendedDelegate.update(headerTxt: "new value", descriptionText: "new value")
+    }
+    
+    private var updateRecommendedDelegate: UpdateRecommendationView!
+    private var recommendedView: RecommendedView!
 
     @IBAction func switchFavoritesViewAction(_ sender: UISegmentedControl) {
         let index = sender.selectedSegmentIndex
@@ -49,13 +79,26 @@ class FavoritesViewController: UIViewController, UITableViewDataSource, UITableV
 
         self.navigationItem.title = "Favorites"
         
-        loadDataFromServer()
+        loadDataFromServer { (movies) in
+            self.movies = movies
+            self.movies = self.movies.sorted{ $0.episode_id < $1.episode_id}
+        }
         loadDatabase()
         selectedState = SegmentStatus.movies
-        
+        createCustomViewAndSetDelegate()
         //let nib = UINib(nibName: "CharacterTableViewCell", bundle: nil)
         //tableView.register(nib, forCellReuseIdentifier: "characterTableCell")
         
+    }
+    
+    //For oppdatering
+    //Kall self.updateRecommendedDelegate.update(headerTxt: "HEADER TEST", descriptionText: "DESC TEST")
+    
+    private func createCustomViewAndSetDelegate() {
+        self.recommendedView = RecommendedView.init(frame: CGRect.init(x: 0, y: tableView.bounds.height + 30, width: UIScreen.main.bounds.width, height: 60))
+        self.recommendedView.isHidden = true
+        self.updateRecommendedDelegate = recommendedView
+        self.view.addSubview(recommendedView)
     }
     
     func loadDatabase() {
@@ -124,6 +167,16 @@ class FavoritesViewController: UIViewController, UITableViewDataSource, UITableV
         
     }
     
+    func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+        return 60
+    }
+    
+    func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
+        let footerView = UIView()
+        footerView.backgroundColor = UIColor.white
+        return footerView
+    }
+    
     override func shouldPerformSegue(withIdentifier identifier: String, sender: Any?) -> Bool {
         if selectedState == SegmentStatus.movies {
             return true
@@ -160,29 +213,8 @@ class FavoritesViewController: UIViewController, UITableViewDataSource, UITableV
                 }
             }
         }
+    
     }
     
-    func loadDataFromServer() {
-        let task = URLSession.shared.dataTask(with: URL.init(string: "https://swapi.co/api/films/?format=json")!) { (data, response, error) in
-            
-            if let actualData = data {
-                
-                _ = String.init(data: actualData, encoding: String.Encoding.utf8)
-                
-                let decoder = JSONDecoder()
-                
-                do {
-                    let movieResponse = try decoder.decode(MovieResponse.self, from: actualData)
-                    self.movies = movieResponse.results
-                    self.movies = self.movies.sorted{ $0.episode_id < $1.episode_id}
-                    
-                } catch let error {
-                    print(error)
-                }
-                
-            }
-        }
-        
-        task.resume()
-    }
+    
 }

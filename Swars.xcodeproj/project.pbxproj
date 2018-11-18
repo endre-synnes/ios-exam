@@ -28,6 +28,7 @@
 		EE8BE41E2194E607005B8EC2 /* MovieEntity+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE8BE41A2194E607005B8EC2 /* MovieEntity+CoreDataClass.swift */; };
 		EE8BE41F2194E607005B8EC2 /* MovieEntity+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE8BE41B2194E607005B8EC2 /* MovieEntity+CoreDataProperties.swift */; };
 		EEE18157219594B80002FD74 /* MovieDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEE18156219594B80002FD74 /* MovieDetailsViewController.swift */; };
+		EEF182DF21A185EF009FC2CD /* RecommendedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEF182DE21A185EF009FC2CD /* RecommendedView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -66,6 +67,7 @@
 		EE8BE41A2194E607005B8EC2 /* MovieEntity+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MovieEntity+CoreDataClass.swift"; sourceTree = "<group>"; };
 		EE8BE41B2194E607005B8EC2 /* MovieEntity+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MovieEntity+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		EEE18156219594B80002FD74 /* MovieDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieDetailsViewController.swift; sourceTree = "<group>"; };
+		EEF182DE21A185EF009FC2CD /* RecommendedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecommendedView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -107,6 +109,7 @@
 		EE47BD1C21947E19007A61D7 /* Swars */ = {
 			isa = PBXGroup;
 			children = (
+				EEF182DD21A185AF009FC2CD /* View */,
 				EE8BE3EC2194D799005B8EC2 /* Controllers */,
 				EE8BE3ED2194D7AC005B8EC2 /* Model */,
 				EE8BE3F42194DDD7005B8EC2 /* Repository */,
@@ -171,6 +174,14 @@
 				EE4B1E9F2198A71000498160 /* ApiHelper.swift */,
 			);
 			path = Utils;
+			sourceTree = "<group>";
+		};
+		EEF182DD21A185AF009FC2CD /* View */ = {
+			isa = PBXGroup;
+			children = (
+				EEF182DE21A185EF009FC2CD /* RecommendedView.swift */,
+			);
+			path = View;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -284,6 +295,7 @@
 				EE3AAA3921985EB1002C4FA6 /* FavoriteTableViewCell.swift in Sources */,
 				EE3AAA3E21986B01002C4FA6 /* CharacterEntity+CoreDataProperties.swift in Sources */,
 				EE8BE3F32194DCDC005B8EC2 /* CharacterResponse.swift in Sources */,
+				EEF182DF21A185EF009FC2CD /* RecommendedView.swift in Sources */,
 				EE8BE3F12194DC1E005B8EC2 /* MovieResponse.swift in Sources */,
 				EE4B1EA02198A71000498160 /* ApiHelper.swift in Sources */,
 				EE8BE3F72194DE00005B8EC2 /* SwarsRepository.xcdatamodeld in Sources */,
