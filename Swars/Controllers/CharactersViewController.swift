@@ -71,7 +71,6 @@ class CharactersViewController: UIViewController, UICollectionViewDataSource, UI
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let character = characters[indexPath.item]
-        print("selected name: \(character.name)")
         
         let delegate =  (UIApplication.shared.delegate as! AppDelegate)
         let context = delegate.persistentContainer.viewContext
@@ -96,19 +95,6 @@ class CharactersViewController: UIViewController, UICollectionViewDataSource, UI
         
         let movieIds = tmpEpisodeIdArray.sorted().joined(separator: ",")
 
-        /*
-        for movie in character.films {
-            let movieStrArray = movie.components(separatedBy: "/")
-            if movieStrArray.count < 3 {continue}
-            
-            tmpStringArray.append(movieStrArray[movieStrArray.count - 2])
-        }
-        var episodeIds = [String]()
-        self.movies.forEach { episodeIds.append(String($0.episode_id))}
-        
-        //let movies = tmpStringArray.sorted().joined(separator: ",")
- 
-         */
         let charDict = [ "name" : character.name,
                          "url" : character.url,
                          "movies" : movieIds] as [String : Any]
@@ -121,19 +107,6 @@ class CharactersViewController: UIViewController, UICollectionViewDataSource, UI
         
         
     }
-    
-    /*
-    func reloadCollectionView() {
-        let delegate =  (UIApplication.shared.delegate as! AppDelegate)
-        let context = delegate.persistentContainer.viewContext
-        
-        let fetchRequest = NSFetchRequest<CharacterEntity>(entityName: "CharacterEntity")
-        myFavorites = try! context.fetch(fetchRequest)
-        print("Size after reload: \(myFavorites.count)")
-        self.viewDidLoad()
-    }
- */
-
     
     func loadDataFromServer() {
         characters.removeAll()

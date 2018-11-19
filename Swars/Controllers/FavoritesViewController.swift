@@ -54,13 +54,20 @@ class FavoritesViewController: UIViewController, UITableViewDataSource, UITableV
 
         self.navigationItem.title = "Favorites"
         
-        loadMoviesFromServer { (movies) in
-            self.movies = movies
-            self.movies = self.movies.sorted{ $0.episode_id < $1.episode_id}
-            DispatchQueue.main.async {
-                self.findRecommendationMovie()
+        if(Helper.app.isInternetAvailable()){
+            loadMoviesFromServer { (movies) in
+                self.movies = movies
+                self.movies = self.movies.sorted{ $0.episode_id < $1.episode_id}
+                DispatchQueue.main.async {
+                    self.findRecommendationMovie()
+                }
             }
+        } else {
+            let alert = UIAlertController(title: "No internet connection!", message: "Ensure that WiFi or cellular is enabled.", preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
+            self.present(alert, animated: true)
         }
+        
         loadDatabase()
         selectedState = SegmentStatus.movies
         createCustomViewAndSetDelegate()
@@ -155,9 +162,6 @@ class FavoritesViewController: UIViewController, UITableViewDataSource, UITableV
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        
-        print("did hit did select for index: \(indexPath)")
-        print("MOVIE STATUS: \(selectedState.debugDescription)")
         if selectedState == SegmentStatus.movies {
             self.tableView.deselectRow(at: indexPath, animated: true)
             let objectThtatWasTapped = favoriteMovies[indexPath.row]
@@ -168,12 +172,11 @@ class FavoritesViewController: UIViewController, UITableViewDataSource, UITableV
             let alert = UIAlertController(title: "\(character.name ?? "Name not defined")", message: "\(movies ?? "No mvoies")", preferredStyle: .alert)
             
             alert.addAction(UIAlertAction(title: "Remove Favorite", style: .default, handler: {action in
-                //self.viewDidLoad()
+                self.deleteFavoriteCharacter(character: character)
             }))
             alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
             self.present(alert, animated: true)
         }
-        
     }
     
     func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
@@ -194,24 +197,9 @@ class FavoritesViewController: UIViewController, UITableViewDataSource, UITableV
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        
         if selectedState == SegmentStatus.movies {
-        
-        
-            print("in favorite prepare")
             if let destination = segue.destination as? MovieDetailsViewController, let transferObject = sender as? MovieEntity {
-                
-                print("lopping movies")
-                for i in movies {
-                    print("episode ids: \(i.episode_id)")
-                }
-                
-                print("selected: \(transferObject.episode_id)")
-                
                 if let movie = movies.first(where: {$0.episode_id == Int(transferObject.episode_id)}) {
-                    
-                    print("in equal...... ")
-                    
                     destination.movie = movie
                 } else {
                     let alert = UIAlertController(title: "Movie not found!", message: "Your favorite movie is not found in our API", preferredStyle: .alert)
@@ -221,8 +209,15 @@ class FavoritesViewController: UIViewController, UITableViewDataSource, UITableV
                 }
             }
         }
-    
     }
     
-    
+    private func deleteFavoriteCharacter(character: CharacterEntity){
+        let delegate =  (UIApplication.shared.delegate as! AppDelegate)
+        let context = delegate.persistentContainer.viewContext
+        
+        context.delete(character)
+        delegate.saveContext()
+        loadDatabase()
+        tableView.reloadData()
+    }
 }
