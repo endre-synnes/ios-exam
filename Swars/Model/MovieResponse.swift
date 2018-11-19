@@ -21,4 +21,5 @@ class Movie : Decodable{
     let release_date: String
     let producer: String
     let characters: Array<String>
+    let url: String
 }

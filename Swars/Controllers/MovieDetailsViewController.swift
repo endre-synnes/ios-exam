@@ -68,13 +68,17 @@ class MovieDetailsViewController: UIViewController {
         let fetchRequest = NSFetchRequest<MovieEntity>(entityName: "MovieEntity")
         myFavorites = try! context.fetch(fetchRequest)
         
-        if(movie?.title == nil || movie?.episode_id == nil){
+        if(movie?.title == nil || movie?.url == nil){
             return
         }
         
         if action == DbAction.add {
+            
+            let movieStrArray = movie?.url.components(separatedBy: "/")
+            if movieStrArray!.count < 3 {return}
+            
             let movieDict = [ "title" : movie!.title,
-                              "episode_id" : movie!.episode_id] as [String : Any]
+                              "episode_id" : Int(movieStrArray![movieStrArray!.count - 2])] as [String : Any]
             
             _ = MovieEntity.init(attributes: movieDict, managedObjectContext: context)
             delegate.saveContext()

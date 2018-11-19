@@ -11,37 +11,44 @@ import CoreData
 
 class FavoritesViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
 
-
-    //this is the view
     var favoriteMovies = [MovieEntity]()
     var favoriteCharacters = [CharacterEntity]()
     var movies = [Movie]()
+    let recomendationTexts = ["Jar Jar’s Top 1-list", "Jabbas Favorite",
+                              "Yoda you have to see this!", "C3PO´s number 1",
+                              "Bobafets Recomendation", "Lukes Sisters Favorite"]
     
     func findRecommendationMovie() {
+        var resultMovie: Movie?
         
-        /*
-        var resultMovie: MovieEntity?
+        var movieOrruranseArray = [Int]()
         
         for character in favoriteCharacters {
-            for movie in (character.movies?.split(separator: ","))! {
-                
-                for movieEnti in favoriteMovies {
-                    if movieEnti.episode_id == movie
+            if(character.movies == nil){
+                continue
+            }
+            
+            for movie in (character.movies?.split(separator: ",").map {Int($0)})! {
+                if(movie == nil){
+                    continue
                 }
+                movieOrruranseArray.append(movie!)
             }
         }
         
-        for movie in favoriteMovies {
-            for character in movie.characters {
-                
-                for favChar in favoriteCharacters {
-                    
+        if (!movieOrruranseArray.isEmpty){
+            let counts = movieOrruranseArray.reduce(into: [:]) { $0[$1, default: 0] += 1 }
+            
+            // https://stackoverflow.com/questions/38416347/getting-the-most-frequent-value-of-an-array
+            if let (value, _) = counts.max(by: { $0.1 < $1.1 }) {
+                    for movie in movies {
+                    if movie.url.range(of: String(value)) != nil {
+                        resultMovie = movie
+                    }
                 }
-                
+                updateReccomended(movie: resultMovie)
             }
         }
-        */
-        updateRecommendedDelegate.update(headerTxt: "new value", descriptionText: "new value")
     }
     
     private var updateRecommendedDelegate: UpdateRecommendationView!
@@ -70,6 +77,7 @@ class FavoritesViewController: UIViewController, UITableViewDataSource, UITableV
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         loadDatabase()
+        findRecommendationMovie()
     }
     
     override func viewDidLoad() {
@@ -82,17 +90,22 @@ class FavoritesViewController: UIViewController, UITableViewDataSource, UITableV
         loadDataFromServer { (movies) in
             self.movies = movies
             self.movies = self.movies.sorted{ $0.episode_id < $1.episode_id}
+            DispatchQueue.main.async {
+                self.findRecommendationMovie()
+            }
         }
         loadDatabase()
         selectedState = SegmentStatus.movies
         createCustomViewAndSetDelegate()
-        //let nib = UINib(nibName: "CharacterTableViewCell", bundle: nil)
-        //tableView.register(nib, forCellReuseIdentifier: "characterTableCell")
-        
     }
     
-    //For oppdatering
-    //Kall self.updateRecommendedDelegate.update(headerTxt: "HEADER TEST", descriptionText: "DESC TEST")
+    
+    private func updateReccomended(movie : Movie?){
+        if movie != nil {
+            self.recommendedView.isHidden = false
+            self.updateRecommendedDelegate.update(headerTxt: recomendationTexts.randomElement()!, descriptionText: movie!.title )
+        }
+    }
     
     private func createCustomViewAndSetDelegate() {
         self.recommendedView = RecommendedView.init(frame: CGRect.init(x: 0, y: tableView.bounds.height + 30, width: UIScreen.main.bounds.width, height: 60))
