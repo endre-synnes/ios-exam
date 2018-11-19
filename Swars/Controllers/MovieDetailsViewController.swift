@@ -78,7 +78,8 @@ class MovieDetailsViewController: UIViewController {
             if movieStrArray!.count < 3 {return}
             
             let movieDict = [ "title" : movie!.title,
-                              "episode_id" : Int(movieStrArray![movieStrArray!.count - 2])] as [String : Any]
+                              "episode_id" : movie!.episode_id,
+                              "url_id" : Int(movieStrArray![movieStrArray!.count - 2])] as [String : Any]
             
             _ = MovieEntity.init(attributes: movieDict, managedObjectContext: context)
             delegate.saveContext()

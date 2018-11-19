@@ -2,7 +2,7 @@
 //  MovieEntity+CoreDataClass.swift
 //  Swars
 //
-//  Created by Endre Mikal Synnes on 08/11/2018.
+//  Created by Endre Mikal Synnes on 19/11/2018.
 //  Copyright © 2018 Endre Mikal Synnes. All rights reserved.
 //
 //
@@ -16,7 +16,8 @@ public class MovieEntity: NSManagedObject {
     convenience init?(attributes: [String : Any], managedObjectContext: NSManagedObjectContext) {
         
         guard let title = attributes["title"] as? String,
-            let episode_id = attributes["episode_id"] as? Int else {
+            let episode_id = attributes["episode_id"] as? Int,
+            let url_id = attributes["url_id"] as? Int else {
                 return nil
         }
         
@@ -25,5 +26,6 @@ public class MovieEntity: NSManagedObject {
         
         self.episode_id = Int32(episode_id)
         self.title = title
+        self.url_id = Int32(url_id)
     }
 }

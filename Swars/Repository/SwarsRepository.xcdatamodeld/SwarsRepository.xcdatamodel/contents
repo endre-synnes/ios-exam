@@ -8,9 +8,10 @@
     <entity name="MovieEntity" representedClassName="MovieEntity" syncable="YES">
         <attribute name="episode_id" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="title" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="url_id" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
     </entity>
     <elements>
         <element name="CharacterEntity" positionX="-27" positionY="36" width="128" height="90"/>
-        <element name="MovieEntity" positionX="-54" positionY="-9" width="128" height="75"/>
+        <element name="MovieEntity" positionX="-54" positionY="-9" width="128" height="90"/>
     </elements>
 </model>
