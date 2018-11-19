@@ -17,40 +17,7 @@ class FavoritesViewController: UIViewController, UITableViewDataSource, UITableV
     let recomendationTexts = ["Jar Jar’s Top 1-list", "Jabbas Favorite",
                               "Yoda you have to see this!", "C3PO´s number 1",
                               "Bobafets Recomendation", "Lukes Sisters Favorite"]
-    
-    func findRecommendationMovie() {
-        var resultMovie: Movie?
-        
-        var movieOrruranseArray = [Int]()
-        
-        for character in favoriteCharacters {
-            if(character.movies == nil){
-                continue
-            }
-            
-            for movie in (character.movies?.split(separator: ",").map {Int($0)})! {
-                if(movie == nil){
-                    continue
-                }
-                movieOrruranseArray.append(movie!)
-            }
-        }
-        
-        if (!movieOrruranseArray.isEmpty){
-            let counts = movieOrruranseArray.reduce(into: [:]) { $0[$1, default: 0] += 1 }
-            
-            // https://stackoverflow.com/questions/38416347/getting-the-most-frequent-value-of-an-array
-            if let (value, _) = counts.max(by: { $0.1 < $1.1 }) {
-                    for movie in movies {
-                    if movie.url.range(of: String(value)) != nil {
-                        resultMovie = movie
-                    }
-                }
-                updateReccomended(movie: resultMovie)
-            }
-        }
-    }
-    
+
     private var updateRecommendedDelegate: UpdateRecommendationView!
     private var recommendedView: RecommendedView!
 
@@ -99,6 +66,38 @@ class FavoritesViewController: UIViewController, UITableViewDataSource, UITableV
         createCustomViewAndSetDelegate()
     }
     
+    func findRecommendationMovie() {
+        var resultMovie: Movie?
+        
+        var movieOrruranseArray = [Int]()
+        
+        for character in favoriteCharacters {
+            if(character.movies == nil){
+                continue
+            }
+            
+            for movie in (character.movies?.split(separator: ",").map {Int($0)})! {
+                if(movie == nil){
+                    continue
+                }
+                movieOrruranseArray.append(movie!)
+            }
+        }
+        
+        if (!movieOrruranseArray.isEmpty){
+            let counts = movieOrruranseArray.reduce(into: [:]) { $0[$1, default: 0] += 1 }
+            
+            // https://stackoverflow.com/questions/38416347/getting-the-most-frequent-value-of-an-array
+            if let (value, _) = counts.max(by: { $0.1 < $1.1 }) {
+                for movie in movies {
+                    if movie.url.range(of: String(value)) != nil {
+                        resultMovie = movie
+                    }
+                }
+                updateReccomended(movie: resultMovie)
+            }
+        }
+    }
     
     private func updateReccomended(movie : Movie?){
         if movie != nil {
@@ -127,7 +126,6 @@ class FavoritesViewController: UIViewController, UITableViewDataSource, UITableV
         tableView.reloadData()
     }
     
-
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if selectedState == SegmentStatus.movies {
             return favoriteMovies.count
@@ -166,9 +164,7 @@ class FavoritesViewController: UIViewController, UITableViewDataSource, UITableV
             self.performSegue(withIdentifier: "segueFromFavoriteToMovie", sender: objectThtatWasTapped)
         } else {
             let character = favoriteCharacters[indexPath.row]
-            
             let movies = character.movies
-            
             let alert = UIAlertController(title: "\(character.name ?? "Name not defined")", message: "\(movies ?? "No mvoies")", preferredStyle: .alert)
             
             alert.addAction(UIAlertAction(title: "Remove Favorite", style: .default, handler: {action in
@@ -194,7 +190,6 @@ class FavoritesViewController: UIViewController, UITableViewDataSource, UITableV
         if selectedState == SegmentStatus.movies {
             return true
         }
-        print("in false")
         return false
     }
     
