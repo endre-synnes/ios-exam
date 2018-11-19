@@ -109,7 +109,7 @@ class FavoritesViewController: UIViewController, UITableViewDataSource, UITableV
     private func updateReccomended(movie : Movie?){
         if movie != nil {
             self.recommendedView.isHidden = false
-            self.updateRecommendedDelegate.update(headerTxt: recomendationTexts.randomElement()!, descriptionText: movie!.title )
+            self.updateRecommendedDelegate.update(headerTxt: "\(recomendationTexts.randomElement()!):", descriptionText: movie!.title )
         }
     }
     

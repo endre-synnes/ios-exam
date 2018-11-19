@@ -59,7 +59,7 @@ class RecommendedView: UIView, UpdateRecommendationView {
         image = UIImageView.init(frame: CGRect.init(x: 0, y: 0, width: 60, height: 60))
         //Fill for 'zoome' effect.
         image.contentMode = .scaleAspectFit
-        image.image = UIImage.init(named: "man")
+        image.image = UIImage.init(named: "bobafat")
     }
     
     
