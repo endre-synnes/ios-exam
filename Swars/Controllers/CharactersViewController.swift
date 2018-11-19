@@ -12,6 +12,7 @@ import CoreData
 class CharactersViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate {
     
     var characters = [Character]()
+    var movies = [Movie]()
     var myFavorites = [CharacterEntity]()
     let apiUrl = "https://swapi.co/api/people/?page="
     @IBOutlet weak var collectionView: UICollectionView!
@@ -31,6 +32,10 @@ class CharactersViewController: UIViewController, UICollectionViewDataSource, UI
         
         if(Helper.app.isInternetAvailable()){
             loadDataFromServer()
+            loadMoviesFromServer { (movies) in
+                self.movies = movies
+                self.movies = self.movies.sorted{ $0.episode_id < $1.episode_id}
+            }
         } else {
             let alert = UIAlertController(title: "No internet connection!", message: "Ensure that WiFi or cellular is enabled.", preferredStyle: .alert)
             
@@ -81,20 +86,32 @@ class CharactersViewController: UIViewController, UICollectionViewDataSource, UI
             }
         }
         
-        var tmpStringArray = [String]()
+        var tmpEpisodeIdArray = [String]()
         
+        for movieUrl in character.films {
+            tmpEpisodeIdArray.append(
+                String((self.movies.first(where: {$0.url == movieUrl})?.episode_id)!)
+            )
+        }
+        
+        let movieIds = tmpEpisodeIdArray.sorted().joined(separator: ",")
+
+        /*
         for movie in character.films {
             let movieStrArray = movie.components(separatedBy: "/")
             if movieStrArray.count < 3 {continue}
             
             tmpStringArray.append(movieStrArray[movieStrArray.count - 2])
         }
+        var episodeIds = [String]()
+        self.movies.forEach { episodeIds.append(String($0.episode_id))}
         
-        let movies = tmpStringArray.sorted().joined(separator: ",")
-        
+        //let movies = tmpStringArray.sorted().joined(separator: ",")
+ 
+         */
         let charDict = [ "name" : character.name,
                          "url" : character.url,
-                         "movies" : movies] as [String : Any]
+                         "movies" : movieIds] as [String : Any]
         
         _ = CharacterEntity.init(attributes: charDict, managedObjectContext: context)
         delegate.saveContext()
@@ -155,15 +172,5 @@ class CharactersViewController: UIViewController, UICollectionViewDataSource, UI
         
     }
     
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
 
 }

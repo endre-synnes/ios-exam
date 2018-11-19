@@ -8,7 +8,7 @@
 
 import Foundation
 
-func loadDataFromServer(requestCompleted: @escaping (_ movies: [Movie]) -> ()) {
+func loadMoviesFromServer(requestCompleted: @escaping (_ movies: [Movie]) -> ()) {
     let task = URLSession.shared.dataTask(with: URL.init(string: "https://swapi.co/api/films/?format=json")!) { (data, response, error) in
         
         if let actualData = data {

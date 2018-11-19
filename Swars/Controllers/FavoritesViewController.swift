@@ -54,7 +54,7 @@ class FavoritesViewController: UIViewController, UITableViewDataSource, UITableV
 
         self.navigationItem.title = "Favorites"
         
-        loadDataFromServer { (movies) in
+        loadMoviesFromServer { (movies) in
             self.movies = movies
             self.movies = self.movies.sorted{ $0.episode_id < $1.episode_id}
             DispatchQueue.main.async {

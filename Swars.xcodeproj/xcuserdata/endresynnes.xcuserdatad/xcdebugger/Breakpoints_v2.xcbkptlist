@@ -10,11 +10,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Swars/Controllers/CharactersViewController.swift"
-            timestampString = "564318448.362193"
+            timestampString = "564323263.1317019"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "114"
-            endingLineNumber = "114"
+            startingLineNumber = "131"
+            endingLineNumber = "131"
             landmarkName = "CharactersViewController"
             landmarkType = "3">
          </BreakpointContent>
