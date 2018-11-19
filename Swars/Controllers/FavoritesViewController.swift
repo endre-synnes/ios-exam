@@ -168,10 +168,9 @@ class FavoritesViewController: UIViewController, UITableViewDataSource, UITableV
             self.performSegue(withIdentifier: "segueFromFavoriteToMovie", sender: objectThtatWasTapped)
         } else {
             let character = favoriteCharacters[indexPath.row]
-            let movies = character.movies
-            let alert = UIAlertController(title: "\(character.name ?? "Name not defined")", message: "\(movies ?? "No mvoies")", preferredStyle: .alert)
+            let alert = UIAlertController(title: "\(character.name ?? "") was in:", message: "\(getMovieTitlesByCharacter(characterUrl: character.url ?? ""))", preferredStyle: .alert)
             
-            alert.addAction(UIAlertAction(title: "Remove Favorite", style: .default, handler: {action in
+            alert.addAction(UIAlertAction(title: "Remove", style: .default, handler: {action in
                 self.deleteFavoriteCharacter(character: character)
             }))
             alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
@@ -219,5 +218,21 @@ class FavoritesViewController: UIViewController, UITableViewDataSource, UITableV
         delegate.saveContext()
         loadDatabase()
         tableView.reloadData()
+    }
+    
+    private func getMovieTitlesByCharacter(characterUrl : String) -> String {
+        var moviesByCharacter = ""
+        
+        for movie in movies {
+            if movie.characters.contains(where: { $0 == characterUrl}){
+                moviesByCharacter.append("\(movie.title), ")
+            }
+        }
+        
+        if moviesByCharacter.last == " " {
+            moviesByCharacter = String(moviesByCharacter.dropLast())
+            return String(moviesByCharacter.dropLast())
+        }
+        return moviesByCharacter
     }
 }
