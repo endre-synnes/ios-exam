@@ -5,14 +5,14 @@
 //  Created by Endre Mikal Synnes on 08/11/2018.
 //  Copyright © 2018 Endre Mikal Synnes. All rights reserved.
 //
+//
+//  Resources used in this file: https://cocoacasts.com/populate-a-table-view-with-nsfetchedresultscontroller-and-swift-3
 
 import UIKit
 import CoreData
 
 class FavoritesViewController: UIViewController {
 
-    //var favoriteMovies = [MovieEntity]()
-    //var favoriteCharacters = [CharacterEntity]()
     var movies = [Movie]()
     let recomendationTexts = ["Jar Jar’s Top 1-list", "Jabbas Favorite",
                               "Yoda you have to see this!", "C3PO´s number 1",
@@ -41,37 +41,23 @@ class FavoritesViewController: UIViewController {
     
     var selectedState : SegmentStatus!
     
-
     private let persistentContainer = NSPersistentContainer(name: "SwarsRepository")
 
-
     fileprivate lazy var characterFetchedResultsController: NSFetchedResultsController<CharacterEntity> = {
-        // Create Fetch Request
         let fetchRequest: NSFetchRequest<CharacterEntity> = CharacterEntity.fetchRequest()
-        
-        // Configure Fetch Request
         fetchRequest.sortDescriptors = [NSSortDescriptor(key: "name", ascending: true)]
         
-        // Create Fetched Results Controller
         let fetchedResultsController = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: self.persistentContainer.viewContext, sectionNameKeyPath: nil, cacheName: nil)
-        
-        // Configure Fetched Results Controller
         fetchedResultsController.delegate = self
         
         return fetchedResultsController
     }()
     
     fileprivate lazy var movieFetchedResultsController: NSFetchedResultsController<MovieEntity> = {
-        // Create Fetch Request
         let fetchRequest: NSFetchRequest<MovieEntity> = MovieEntity.fetchRequest()
-        
-        // Configure Fetch Request
         fetchRequest.sortDescriptors = [NSSortDescriptor(key: "episode_id", ascending: true)]
         
-        // Create Fetched Results Controller
         let fetchedResultsController = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: self.persistentContainer.viewContext, sectionNameKeyPath: nil, cacheName: nil)
-        
-        // Configure Fetched Results Controller
         fetchedResultsController.delegate = self
         
         return fetchedResultsController
@@ -79,13 +65,12 @@ class FavoritesViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        //loadDatabase()
         findRecommendationMovie()
         do {
             try self.characterFetchedResultsController.performFetch()
             try self.movieFetchedResultsController.performFetch()
         } catch {
-            let fetchError = error as NSError
+            _ = error as NSError
             print("Unable to Perform Fetch Request")
         }
         tableView.reloadData()
@@ -94,13 +79,25 @@ class FavoritesViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        tableView.dataSource = self
+        tableView.delegate = self
+        
+        self.navigationItem.title = "Favorites"
+        selectedState = SegmentStatus.movies
+        
+        setUpView()
+        createCustomViewAndSetDelegate()
+    }
+    
+    private func setUpView(){
         persistentContainer.loadPersistentStores { (persistentStoreDescription, error) in
             if let error = error {
                 print("Unable to Load Persistent Store")
                 print("\(error), \(error.localizedDescription)")
+                self.viewErrorAlert(title: "Database error", message: "Unable to communicate with database.")
                 
             } else {
-                self.setupView()
+                self.checkDataInDatabase()
                 
                 do {
                     try self.characterFetchedResultsController.performFetch()
@@ -109,16 +106,10 @@ class FavoritesViewController: UIViewController {
                     let fetchError = error as NSError
                     print("Unable to Perform Fetch Request")
                     print("\(fetchError), \(fetchError.localizedDescription)")
+                    self.viewErrorAlert(title: "Database error", message: "Unable to fetch data.")
                 }
-                
-                self.updateView()
             }
         }
-        
-        tableView.dataSource = self
-        tableView.delegate = self
-
-        self.navigationItem.title = "Favorites"
         
         if(Helper.app.isInternetAvailable()){
             loadMoviesFromServer { (movies) in
@@ -129,23 +120,21 @@ class FavoritesViewController: UIViewController {
                 }
             }
         } else {
-            let alert = UIAlertController(title: "No internet connection!", message: "Ensure that WiFi or cellular is enabled.", preferredStyle: .alert)
-            alert.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
-            self.present(alert, animated: true)
+            viewErrorAlert(title: "No internet connection!", message: "Ensure that WiFi or cellular is enabled.")
         }
-        
-        //loadDatabase()
-        selectedState = SegmentStatus.movies
-        createCustomViewAndSetDelegate()
     }
     
-    private func setupView() {
-        //setupMessageLabel()
+    private func viewErrorAlert(title: String, message: String){
+        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
         
-        updateView()
+        alert.addAction(UIAlertAction(title: "Retry", style: .default, handler: {action in
+            self.viewDidLoad()
+        }))
+        alert.addAction(UIAlertAction(title: "Dismiss", style: .cancel, handler: nil))
+        self.present(alert, animated: true)
     }
     
-    private func updateView() {
+    private func checkDataInDatabase() {
         var hasEntities = false
         
         if let characters = characterFetchedResultsController.fetchedObjects {
@@ -158,20 +147,13 @@ class FavoritesViewController: UIViewController {
         if !hasEntities {
             print("no entities found")
         }
-        
-        //tableView.isHidden = !hasQuotes
-        //messageLabel.isHidden = hasQuotes
-        
-        //activityIndicatorView.stopAnimating()
     }
     
     func findRecommendationMovie() {
         var resultMovie: Movie?
         
         var movieOrruranseArray = [Int]()
-        
         let favoriteCharacters = characterFetchedResultsController.fetchedObjects
-        
         if favoriteCharacters == nil {
             return
         }
@@ -218,75 +200,6 @@ class FavoritesViewController: UIViewController {
         self.view.addSubview(recommendedView)
     }
     
-    /*
-    func loadDatabase() {
-        let delegate =  (UIApplication.shared.delegate as! AppDelegate)
-        let context = delegate.persistentContainer.viewContext
-        
-        let fetchCharactersRequest = NSFetchRequest<CharacterEntity>(entityName: "CharacterEntity")
-        favoriteCharacters = try! context.fetch(fetchCharactersRequest)
-        
-        let fetchMoviesRequest = NSFetchRequest<MovieEntity>(entityName: "MovieEntity")
-        favoriteMovies = try! context.fetch(fetchMoviesRequest)
-        
-        tableView.reloadData()
-    }
-    
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if selectedState == SegmentStatus.movies {
-            return favoriteMovies.count
-        }
-        return favoriteCharacters.count
-        
-    }
-    
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        
-        let cell = tableView.dequeueReusableCell(withIdentifier: "favoriteTableCell") as! FavoriteTableViewCell
-        
-        if selectedState == SegmentStatus.movies {
-            cell.customInit(name: self.favoriteMovies[indexPath.row].title ?? "nil")
-        } else {
-            let character = self.favoriteCharacters[indexPath.row]
-            cell.customInit(name: character.name ?? "nil", movies: character.movies ?? "nil")
-            cell.selectionStyle = .none
-
-        }
-        
-        return cell
-    }
-    
-    func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
-        return true
-    }
-    
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        if selectedState == SegmentStatus.movies {
-            self.tableView.deselectRow(at: indexPath, animated: true)
-            let objectThtatWasTapped = favoriteMovies[indexPath.row]
-            self.performSegue(withIdentifier: "segueFromFavoriteToMovie", sender: objectThtatWasTapped)
-        } else {
-            let character = favoriteCharacters[indexPath.row]
-            let alert = UIAlertController(title: "\(character.name ?? "") was in:", message: "\(getMovieTitlesByCharacter(characterUrl: character.url ?? ""))", preferredStyle: .alert)
-            
-            alert.addAction(UIAlertAction(title: "Remove", style: .default, handler: {action in
-                self.deleteFavoriteCharacter(character: character)
-            }))
-            alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
-            self.present(alert, animated: true)
-        }
-    }
-    
-    func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
-        return 60
-    }
-    
-    func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
-        let footerView = UIView()
-        footerView.backgroundColor = UIColor.white
-        return footerView
-    }
-    */
     override func shouldPerformSegue(withIdentifier identifier: String, sender: Any?) -> Bool {
         if selectedState == SegmentStatus.movies {
             return true
@@ -310,22 +223,15 @@ class FavoritesViewController: UIViewController {
     }
     
     private func deleteFavoriteCharacter(indexPath: IndexPath){
-        
-        /*
-
-        let delegate =  (UIApplication.shared.delegate as! AppDelegate)
-        
-        let context = delegate.persistentContainer.viewContext
-        
-        context.delete(character)
-        delegate.saveContext()
-         */
-        //loadDatabase()
         let character = characterFetchedResultsController.object(at: indexPath)
-        
-        // Delete Quote
         character.managedObjectContext?.delete(character)
-
+        
+        persistentContainer.viewContext.delete(character)
+         do {
+            try persistentContainer.viewContext.save()
+        } catch {
+            print("failed to save")
+        }
         self.viewWillAppear(false)
     }
     
@@ -385,7 +291,6 @@ extension FavoritesViewController: UITableViewDataSource {
     }
     
 }
-
 
 extension FavoritesViewController: UITableViewDelegate {
     
