@@ -55,7 +55,6 @@ class MoviesViewController: UIViewController, UITableViewDataSource, UITableView
     }
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        print("in movie prepare")
         if let destination = segue.destination as? MovieDetailsViewController, let indexPath = tableView.indexPathForSelectedRow {
             destination.movie = movies[indexPath.row]
         }

@@ -23,8 +23,14 @@ class MovieDetailsViewController: UIViewController {
     @IBOutlet weak var directorLabel: UILabel!
     @IBOutlet weak var producerLabel: UILabel!
     @IBOutlet weak var releaseDateLabel: UILabel!
+    @IBOutlet weak var episodeLabel: UILabel!
     
     @IBOutlet weak var favoriteBtnOutlet: UIButton!
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        _ = checkForFavorite()
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -34,6 +40,7 @@ class MovieDetailsViewController: UIViewController {
         _ = checkForFavorite()
 
         movieTitleLabel.text = "Title: \(movie?.title ?? "")"
+        episodeLabel.text = "Episode id: \(movie?.episode_id ?? 0)"
         directorLabel.text = "Director: \(movie?.director ?? "")"
         producerLabel.text = "Producer: \(movie?.producer ?? "")"
         releaseDateLabel.text = "Release date: \(movie?.release_date ?? "")"
@@ -79,7 +86,7 @@ class MovieDetailsViewController: UIViewController {
             
             let movieDict = [ "title" : movie!.title,
                               "episode_id" : movie!.episode_id,
-                              "url_id" : Int(movieStrArray![movieStrArray!.count - 2])] as [String : Any]
+                              "url_id" : Int(movieStrArray![movieStrArray!.count - 2]) ?? 0] as [String : Any]
             
             _ = MovieEntity.init(attributes: movieDict, managedObjectContext: context)
             delegate.saveContext()

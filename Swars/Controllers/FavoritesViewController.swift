@@ -94,9 +94,7 @@ class FavoritesViewController: UIViewController {
                 print("Unable to Load Persistent Store")
                 print("\(error), \(error.localizedDescription)")
                 
-            } else {
-                self.checkDataInDatabase()
-                
+            } else {                
                 do {
                     try self.characterFetchedResultsController.performFetch()
                     try self.movieFetchedResultsController.performFetch()
@@ -130,21 +128,6 @@ class FavoritesViewController: UIViewController {
         }))
         alert.addAction(UIAlertAction(title: "Dismiss", style: .cancel, handler: nil))
         self.present(alert, animated: true)
-    }
-    
-    private func checkDataInDatabase() {
-        var hasEntities = false
-        
-        if let characters = characterFetchedResultsController.fetchedObjects {
-            hasEntities = characters.count > 0
-        }
-        if let movies = movieFetchedResultsController.fetchedObjects {
-            hasEntities = movies.count > 0
-        }
-        
-        if !hasEntities {
-            print("no entities found")
-        }
     }
     
     func findRecommendationMovie() {
@@ -211,7 +194,7 @@ class FavoritesViewController: UIViewController {
                 if let movie = movies.first(where: {$0.episode_id == Int(transferObject.episode_id)}) {
                     destination.movie = movie
                 } else {
-                    let alert = UIAlertController(title: "Movie not found!", message: "Your favorite movie is not found in our API", preferredStyle: .alert)
+                    let alert = UIAlertController(title: "Movie not found!", message: "The movie details is not yet loaded from the API, try again", preferredStyle: .alert)
                     
                     alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))
                     self.present(alert, animated: true)
