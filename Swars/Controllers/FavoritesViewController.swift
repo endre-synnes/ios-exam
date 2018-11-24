@@ -9,6 +9,8 @@ import CoreData
 
 class FavoritesViewController: UIViewController {
 
+    // Variables
+    
     var movies = [Movie]()
     let recomendationTexts = ["Jar Jar’s Top 1-list", "Jabbas Favorite",
                               "Yoda you have to see this!", "C3PO´s number 1",
@@ -59,12 +61,16 @@ class FavoritesViewController: UIViewController {
         return fetchedResultsController
     }()
     
+    
+    // Class functions
+    
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        findRecommendationMovie()
         do {
             try self.characterFetchedResultsController.performFetch()
             try self.movieFetchedResultsController.performFetch()
+            findRecommendationMovie()
         } catch {
             _ = error as NSError
             print("Unable to Perform Fetch Request")
@@ -84,24 +90,11 @@ class FavoritesViewController: UIViewController {
         createCustomViewAndSetDelegate()
     }
     
+    // Helper functions
+    
     private func setUpView(){
-        persistentContainer.loadPersistentStores { (persistentStoreDescription, error) in
-            if let error = error {
-                print("Unable to Load Persistent Store")
-                print("\(error), \(error.localizedDescription)")
-                
-            } else {                
-                do {
-                    try self.characterFetchedResultsController.performFetch()
-                    try self.movieFetchedResultsController.performFetch()
-                } catch {
-                    let fetchError = error as NSError
-                    print("Unable to Perform Fetch Request")
-                    print("\(fetchError), \(fetchError.localizedDescription)")
-                    self.viewErrorAlert(title: "Database error", message: "Unable to fetch data.")
-                }
-            }
-        }
+        
+        fetchDabaseData()
         
         if(Helper.app.isInternetAvailable()){
             loadMoviesFromServer { (movies) in
@@ -113,6 +106,26 @@ class FavoritesViewController: UIViewController {
             }
         } else {
             viewErrorAlert(title: "No internet connection!", message: "Ensure that WiFi or cellular is enabled.")
+        }
+    }
+    
+    private func fetchDabaseData(){
+        persistentContainer.loadPersistentStores { (persistentStoreDescription, error) in
+            if let error = error {
+                print("Unable to Load Persistent Store")
+                print("\(error), \(error.localizedDescription)")
+                
+            } else {
+                do {
+                    try self.characterFetchedResultsController.performFetch()
+                    try self.movieFetchedResultsController.performFetch()
+                } catch {
+                    let fetchError = error as NSError
+                    print("Unable to Perform Fetch Request")
+                    print("\(fetchError), \(fetchError.localizedDescription)")
+                    self.viewErrorAlert(title: "Database error", message: "Unable to fetch data.")
+                }
+            }
         }
     }
     
@@ -154,12 +167,14 @@ class FavoritesViewController: UIViewController {
             // https://stackoverflow.com/questions/38416347/getting-the-most-frequent-value-of-an-array
             if let (value, _) = counts.max(by: { $0.1 < $1.1 }) {
                 for movie in movies {
-                    if movie.url.range(of: String(value)) != nil {
+                    if movie.episode_id == value {
                         resultMovie = movie
                     }
                 }
                 updateReccomended(movie: resultMovie)
             }
+        } else {
+            updateReccomended(movie: nil)
         }
     }
     
@@ -167,6 +182,8 @@ class FavoritesViewController: UIViewController {
         if movie != nil {
             self.recommendedView.isHidden = false
             self.updateRecommendedDelegate.update(headerTxt: "\(recomendationTexts.randomElement()!):", descriptionText: movie!.title )
+        } else {
+            self.recommendedView.isHidden = true
         }
     }
     
@@ -176,6 +193,9 @@ class FavoritesViewController: UIViewController {
         self.updateRecommendedDelegate = recommendedView
         self.view.addSubview(recommendedView)
     }
+    
+    
+    // Segue functions
     
     override func shouldPerformSegue(withIdentifier identifier: String, sender: Any?) -> Bool {
         if selectedState == SegmentStatus.movies {
