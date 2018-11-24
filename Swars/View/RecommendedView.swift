@@ -1,10 +1,7 @@
 //
 //  RecommendedView.swift
 //  Swars
-//
-//  Created by Endre Mikal Synnes on 18/11/2018.
-//  Copyright © 2018 Endre Mikal Synnes. All rights reserved.
-//
+
 
 protocol UpdateRecommendationView {
     func update(headerTxt: String, descriptionText: String)
