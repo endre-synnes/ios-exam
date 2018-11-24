@@ -14,7 +14,6 @@ class CharactersViewController: UIViewController, UICollectionViewDataSource, UI
     var characters = [Character]()
     var movies = [Movie]()
     var myFavorites = [CharacterEntity]()
-    let apiUrl = "https://swapi.co/api/people/?page="
     @IBOutlet weak var collectionView: UICollectionView!
 
     override func viewWillAppear(_ animated: Bool) {
@@ -46,7 +45,6 @@ class CharactersViewController: UIViewController, UICollectionViewDataSource, UI
             alert.addAction(UIAlertAction(title: "Dismiss", style: .cancel, handler: nil))
             self.present(alert, animated: true)
         }
-        
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {

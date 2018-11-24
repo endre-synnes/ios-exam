@@ -14,7 +14,6 @@ class MoviesViewController: UIViewController, UITableViewDataSource, UITableView
     
     var movies = [Movie]()
     
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.dataSource = self
@@ -31,9 +30,7 @@ class MoviesViewController: UIViewController, UITableViewDataSource, UITableView
             alert.addAction(UIAlertAction(title: "Dismiss", style: .cancel, handler: nil))
             self.present(alert, animated: true)
         }
-
     }
-    
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return movies.count

@@ -74,7 +74,6 @@ class FavoritesViewController: UIViewController {
             print("Unable to Perform Fetch Request")
         }
         tableView.reloadData()
-
     }
     
     override func viewDidLoad() {
