@@ -17,13 +17,24 @@ class CharactersViewController: UIViewController, UICollectionViewDataSource, UI
     let apiUrl = "https://swapi.co/api/people/?page="
     @IBOutlet weak var collectionView: UICollectionView!
 
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        let delegate =  (UIApplication.shared.delegate as! AppDelegate)
+        let context = delegate.persistentContainer.viewContext
+        
+        let fetchRequest = NSFetchRequest<CharacterEntity>(entityName: "CharacterEntity")
+        myFavorites = try! context.fetch(fetchRequest)
+        collectionView.reloadData()
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         collectionView.dataSource = self
         collectionView.delegate = self
+        self.navigationItem.title = "Characters"
+
     
-        //self.reloadCollectionView()
         let delegate =  (UIApplication.shared.delegate as! AppDelegate)
         let context = delegate.persistentContainer.viewContext
         
@@ -38,7 +49,6 @@ class CharactersViewController: UIViewController, UICollectionViewDataSource, UI
             }
         } else {
             let alert = UIAlertController(title: "No internet connection!", message: "Ensure that WiFi or cellular is enabled.", preferredStyle: .alert)
-            
             alert.addAction(UIAlertAction(title: "Retry", style: .default, handler: {action in
                 self.viewDidLoad()
             }))
@@ -46,7 +56,6 @@ class CharactersViewController: UIViewController, UICollectionViewDataSource, UI
             self.present(alert, animated: true)
         }
         
-        // Do any additional setup after loading the view.
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {

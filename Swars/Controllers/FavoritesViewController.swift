@@ -94,7 +94,6 @@ class FavoritesViewController: UIViewController {
             if let error = error {
                 print("Unable to Load Persistent Store")
                 print("\(error), \(error.localizedDescription)")
-                self.viewErrorAlert(title: "Database error", message: "Unable to communicate with database.")
                 
             } else {
                 self.checkDataInDatabase()
