@@ -135,13 +135,13 @@
 		EE8BE3EC2194D799005B8EC2 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				EE8BE3EA2194D785005B8EC2 /* MoviesViewController.swift */,
 				EE47BD45219493A1007A61D7 /* CharactersViewController.swift */,
+				EE7C2B7C2195DEB200F67AD2 /* CharacterCollectionViewCell.swift */,
 				EE47BD4321948F4A007A61D7 /* FavoritesViewController.swift */,
+				EE3AAA3721985EB1002C4FA6 /* FavoriteTableViewCell.swift */,
+				EE8BE3EA2194D785005B8EC2 /* MoviesViewController.swift */,
 				EE8BE3EE2194DA3E005B8EC2 /* MoviesTableViewCell.swift */,
 				EEE18156219594B80002FD74 /* MovieDetailsViewController.swift */,
-				EE7C2B7C2195DEB200F67AD2 /* CharacterCollectionViewCell.swift */,
-				EE3AAA3721985EB1002C4FA6 /* FavoriteTableViewCell.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";

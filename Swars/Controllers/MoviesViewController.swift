@@ -9,8 +9,6 @@
 import UIKit
 
 class MoviesViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
-    
-    
 
     @IBOutlet weak var tableView: UITableView!
     
@@ -34,7 +32,6 @@ class MoviesViewController: UIViewController, UITableViewDataSource, UITableView
             self.present(alert, animated: true)
         }
 
-        // Do any additional setup after loading the view.
     }
     
     
@@ -43,12 +40,9 @@ class MoviesViewController: UIViewController, UITableViewDataSource, UITableView
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "movieCell", for: indexPath) as!
-        MoviesTableViewCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: "movieCell", for: indexPath) as! MoviesTableViewCell
         
         cell.movieNameLabel.text = movies[indexPath.row].title
-        
-        //Tar bort bakgrunnsfarge når man klikker på en tabellrad
         cell.selectionStyle = .none
         
         return cell
@@ -59,10 +53,7 @@ class MoviesViewController: UIViewController, UITableViewDataSource, UITableView
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        print("did hit did select for index: \(indexPath.row)")
-
         tableView.deselectRow(at: indexPath, animated: true)
-        
         performSegue(withIdentifier: "segueToMovieDetails", sender: self)
     }
 
@@ -74,35 +65,13 @@ class MoviesViewController: UIViewController, UITableViewDataSource, UITableView
     }
     
     func loadDataFromServer() {
-        let task = URLSession.shared.dataTask(with: URL.init(string: "https://swapi.co/api/films/?format=json")!) { (data, response, error) in
-            
-            if let actualData = data {
-                
-                _ = String.init(data: actualData, encoding: String.Encoding.utf8)
-                
-                let decoder = JSONDecoder()
-                                
-                do {
-                    let movieResponse = try decoder.decode(MovieResponse.self, from: actualData)
-                    self.movies = movieResponse.results
-                    self.movies = self.movies.sorted{ $0.episode_id < $1.episode_id}
-
-                    //Siden kun main thread har lov til å gjøre UI opdpateringer så må man få tilgang til main thread og så kjøre kode på den for å oppdatere UI.
-                    DispatchQueue.main.async {
-                        self.tableView.reloadData()
-                    }
-                    
-                    for movie in movieResponse.results {
-                        print(movie.title)
-                    }
-                } catch let error {
-                    print(error)
-                }
-                
+        loadMoviesFromServer { (movies) in
+            self.movies = movies
+            self.movies = self.movies.sorted{ $0.episode_id < $1.episode_id}
+            DispatchQueue.main.async {
+                self.tableView.reloadData()
             }
         }
-        
-        task.resume()
     }
 
 }
