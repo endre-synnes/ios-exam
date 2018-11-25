@@ -188,7 +188,7 @@ class FavoritesViewController: UIViewController {
     }
     
     private func createCustomViewAndSetDelegate() {
-        self.recommendedView = RecommendedView.init(frame: CGRect.init(x: 0, y: tableView.bounds.height + 30, width: UIScreen.main.bounds.width, height: 60))
+        self.recommendedView = RecommendedView.init(frame: CGRect.init(x: 0, y: UIScreen.main.bounds.height - 150, width: UIScreen.main.bounds.width, height: 150))
         self.recommendedView.isHidden = true
         self.updateRecommendedDelegate = recommendedView
         self.view.addSubview(recommendedView)
